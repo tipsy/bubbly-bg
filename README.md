@@ -1,1 +1,1 @@
-# js-bg-gen
+# bubbly-bg
