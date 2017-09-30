@@ -12,7 +12,7 @@ Add bubbly to your webpage and call `bubbly()`:
 </body>
 ```
 
-Bubbly creates a canvas element and appends it to the body. This element has `position: fixed` and `z-index: -1`, and always fills the width/height of the viewport, which should make it plug and play for most projects.
+Bubbly creates a `canvas` element and appends it to the `body`. This element has `position: fixed` and `z-index: -1`, and always fills the width/height of the viewport, which should make it plug and play for most projects.
 
 ### Live demo:
 https://tipsy.github.io/bubbly-bg
