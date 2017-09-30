@@ -2,7 +2,7 @@
 
 Beautiful bubbly backgrounds in less than 1kb (699 bytes gzipped). 
 
-#### Usage
+### Usage
 Add bubbly to your webpage and call `bubbly()`: 
 ```html
 <body>
