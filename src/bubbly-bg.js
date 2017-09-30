@@ -2,16 +2,16 @@ window.bubbly = function (config) {
     const c = config || {};
     const r = () => Math.random();
     const canvas = document.createElement("canvas");
-    document.body.appendChild(canvas);
     canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    document.body.appendChild(canvas); // todo(tipsy): consider allowing custom canvas
     const context = canvas.getContext("2d");
+    context.shadowColor = c.shadowColor || "#fff";
+    context.shadowBlur = c.blur || 4;
     const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradient.addColorStop(0, c.colorStart || "#25A6E1");
     gradient.addColorStop(1, c.colorStop || "#176EB5");
-    context.shadowColor = c.shadowColor || "#fff";
-    context.shadowBlur = c.blur || 4;
     const nrBubbles = c.bubbles || Math.floor((canvas.width + canvas.height) * 0.02);
     const bubbles = [];
     for (let i = 0; i < nrBubbles; i++) {
