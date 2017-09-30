@@ -20,14 +20,14 @@ Bubbly creates a `canvas` element and appends it to the `body`. This element has
 ## Configuration
 
 ```javascript
-  bubbly({
+bubbly({
     animate: true, // default is false
-    blur: 1, // default is between 2 and 7
-    bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)` // default is () => `hsla(0, 0%, 100%, ${r() * 0.1})`)
+    blur: 3, // default is between 2 and 7
+    bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`, // default is () => `hsla(0, 0%, 100%, ${r() * 0.1})`)
     bubbles: 100, // default is Math.floor((canvas.width + canvas.height) * 0.02);
-    colorStart: "#fff4e6", // default is blue-ish
-    colorStop: "#ffe9e4", // default is blue-ish
-    compose: "source-over", // default is "lighter"
+    colorStart: "#4c004c", // default is blue-ish
+    colorStop: "#1a001a",// default is blue-ish
+    compose: "lighter", // default is "lighter"
     shadowColor: "#0ff", // default is #fff
-  });
+});
 ```
