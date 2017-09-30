@@ -7,7 +7,7 @@ Add bubbly to your webpage and call `bubbly()`:
 ```html
 <body>
   ...
-  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg/dist/bubbly-bg.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.1/dist/bubbly-bg.js"></script>
   <script>bubbly();</script>
 </body>
 ```
