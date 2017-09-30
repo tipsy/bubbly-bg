@@ -2,22 +2,24 @@
 <script src="bubbly-bg.js"></script>
 <script>
     let count = 0;
-    bubbly();
+    bubbly({animate:true});
     setInterval(() => {
         document.body.removeChild(document.querySelector("canvas")); // remove previous canvas
         switch (++count % 4) {
             case 0:
-                return bubbly(); // default is blue with white bubbles
+                return bubbly({animate:true}); // default is blue with white bubbles
             case 1:
                 return bubbly({
                     colorStart: "#111",
                     colorStop: "#422",
+                    animate: true,
                     bubbleFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
                 });
             case 2:
                 return bubbly({
                     colorStart: "#4c004c",
                     colorStop: "#1a001a",
+                    animate: true,
                     bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
                 });
             case 3:
@@ -26,9 +28,9 @@
                     colorStop: "#ffe9e4",
                     blur: 1,
                     compose: "source-over",
+                    animate: true,
                     bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
                 });
         }
     }, 2000);
 </script>
-
