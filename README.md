@@ -42,3 +42,39 @@ bubbly({
     shadowColor: "#0ff", // default is #fff
 });
 ```
+
+### Config from examples
+
+#### Blue with white bubbles
+```javascript
+bubbly();
+```
+
+#### Black/red with red bubbles
+```javascript
+bubbly({
+    colorStart: "#111",
+    colorStop: "#422",
+    bubbleFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
+});
+```
+
+#### Purple with colored bubbles
+```javascript
+bubbly({
+    colorStart: "#4c004c",
+    colorStop: "#1a001a",
+    bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
+});
+```
+
+#### Yellow/pink with red/orange/yellow bubbles
+```javascript
+bubbly({
+    colorStart: "#fff4e6",
+    colorStop: "#ffe9e4",
+    blur: 1,
+    compose: "source-over",
+    bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
+});
+```
