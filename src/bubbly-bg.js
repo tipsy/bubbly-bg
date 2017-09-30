@@ -33,6 +33,7 @@ window.bubbly = function (config) {
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.globalCompositeOperation = c.compose || "lighter";
+        context.shadowColor = c.shadowColor || "#fff";
         bubbles.forEach(b => {
             context.beginPath();
             context.arc(b.xPos, b.yPos, b.radius, b.start, b.end);
