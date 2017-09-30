@@ -10,16 +10,18 @@ window.bubbly = function (config) {
     const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradient.addColorStop(0, c.colorStart || "#25A6E1");
     gradient.addColorStop(1, c.colorStop || "#176EB5");
+    context.shadowColor = c.shadowColor || "#fff";
+    context.shadowBlur = c.blur || 4;
     const nrBubbles = c.bubbles || Math.floor((canvas.width + canvas.height) * 0.02);
     const bubbles = [];
     for (let i = 0; i < nrBubbles; i++) {
         bubbles.push({
-            fill: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(),
-            xPos: r() * canvas.width,
-            yPos: r() * canvas.height,
-            radius: 4 + (r() * canvas.width / 25),
-            angle: r() * Math.PI * 2,
-            velocity: 0.1 + r() * 0.5
+            f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
+            x: r() * canvas.width, // x-position
+            y: r() * canvas.height, // y-position
+            r: 4 + (r() * canvas.width / 25), // radius
+            a: r() * Math.PI * 2, // angle
+            v: 0.1 + r() * 0.5 // velocity
         });
     }
     (function draw() {
@@ -30,27 +32,25 @@ window.bubbly = function (config) {
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.globalCompositeOperation = c.compose || "lighter";
-        context.shadowColor = c.shadowColor || "#fff";
         bubbles.forEach(b => {
             context.beginPath();
-            context.arc(b.xPos, b.yPos, b.radius, 0, Math.PI * 2);
-            context.fillStyle = b.fill;
-            context.shadowBlur = c.blur || (2 + r() * 5);
+            context.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            context.fillStyle = b.f;
             context.fill();
             // update positions for next draw
-            b.xPos += Math.cos(b.angle) * b.velocity;
-            b.yPos += Math.sin(b.angle) * b.velocity;
-            if (b.xPos - b.radius > canvas.width) {
-                b.xPos = -b.radius;
+            b.x += Math.cos(b.a) * b.v;
+            b.y += Math.sin(b.a) * b.v;
+            if (b.x - b.r > canvas.width) {
+                b.x = -b.r;
             }
-            if (b.xPos + b.radius < 0) {
-                b.xPos = canvas.width + b.radius;
+            if (b.x + b.r < 0) {
+                b.x = canvas.width + b.r;
             }
-            if (b.yPos - b.radius > canvas.height) {
-                b.yPos = -b.radius;
+            if (b.y - b.r > canvas.height) {
+                b.y = -b.r;
             }
-            if (b.yPos + b.radius < 0) {
-                b.yPos = canvas.height + b.radius;
+            if (b.y + b.r < 0) {
+                b.y = canvas.height + b.r;
             }
         });
     })();
