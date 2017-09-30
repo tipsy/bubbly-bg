@@ -2,6 +2,8 @@
 
 Beautiful bubbly backgrounds in 699 bytes (gzipped).
 
+![Bubbly animated](https://tipsy.github.io/bubbly-bg/bubbly.gif)
+
 ![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
 
 ## Usage
