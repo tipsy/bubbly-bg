@@ -2,9 +2,14 @@
 
 Beautiful bubbly backgrounds in 699 bytes (gzipped).
 
+## Gif demo:
 ![Bubbly animated](https://tipsy.github.io/bubbly-bg/bubbly.gif)
 
+## PNG demo:
 ![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
+
+## Live demo:
+https://tipsy.github.io/bubbly-bg
 
 ## Usage
 Add bubbly to your webpage and call `bubbly()`: 
