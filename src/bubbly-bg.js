@@ -1,17 +1,17 @@
 window.bubbly = function (config) {
-    let c = config || {};
-    let r = () => Math.random();
+    const c = config || {};
+    const r = () => Math.random();
     const canvas = document.createElement("canvas");
     document.body.appendChild(canvas);
     canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const context = canvas.getContext("2d");
-    let gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+    const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradient.addColorStop(0, c.colorStart || "#25A6E1");
     gradient.addColorStop(1, c.colorStop || "#176EB5");
-    let nrBubbles = c.bubbles || Math.floor((canvas.width + canvas.height) * 0.02);
-    let bubbles = [];
+    const nrBubbles = c.bubbles || Math.floor((canvas.width + canvas.height) * 0.02);
+    const bubbles = [];
     for (let i = 0; i < nrBubbles; i++) {
         bubbles.push({
             fill: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(),
