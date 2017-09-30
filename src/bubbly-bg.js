@@ -10,7 +10,6 @@ window.bubbly = function (config) {
     let gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradient.addColorStop(0, c.colorStart || "#25A6E1");
     gradient.addColorStop(1, c.colorStop || "#176EB5");
-    context.fillStyle = gradient;
     let nrBubbles = c.bubbles || Math.floor((canvas.width + canvas.height) * 0.02);
     let bubbles = [];
     for (let i = 0; i < nrBubbles; i++) {
@@ -19,10 +18,8 @@ window.bubbly = function (config) {
             xPos: r() * canvas.width,
             yPos: r() * canvas.height,
             radius: 4 + (r() * canvas.width / 25),
-            start: 0,
             angle: r() * Math.PI * 2,
-            velocity: 0.1 + r() * 0.5,
-            end: Math.PI * 2
+            velocity: 0.1 + r() * 0.5
         });
     }
     (function draw() {
@@ -36,10 +33,10 @@ window.bubbly = function (config) {
         context.shadowColor = c.shadowColor || "#fff";
         bubbles.forEach(b => {
             context.beginPath();
-            context.arc(b.xPos, b.yPos, b.radius, b.start, b.end);
+            context.arc(b.xPos, b.yPos, b.radius, 0, Math.PI * 2);
             context.fillStyle = b.fill;
-            context.fill();
             context.shadowBlur = c.blur || (2 + r() * 5);
+            context.fill();
             // update positions for next draw
             b.xPos += Math.cos(b.angle) * b.velocity;
             b.yPos += Math.sin(b.angle) * b.velocity;
