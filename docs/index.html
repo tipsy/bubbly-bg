@@ -22,6 +22,6 @@
     bubbly(); // default is blue with white bubbles
     setInterval(() => {
         document.querySelectorAll("canvas").forEach(c => c.style.display = "none");
-        document.querySelectorAll("canvas")[count++ % 4].style.display = "block"; // remove previous canvas
+        document.querySelectorAll("canvas")[count++ % 4].style.display = "block";
     }, 2000);
 </script>
