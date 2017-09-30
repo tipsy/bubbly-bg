@@ -32,7 +32,7 @@ https://tipsy.github.io/bubbly-bg
 
 ```javascript
 bubbly({
-    animate: true, // default is false
+    animate: false, // default is true
     blur: 3, // default is between 2 and 7
     bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`, // default is () => `hsla(0, 0%, 100%, ${r() * 0.1})`)
     bubbles: 100, // default is Math.floor((canvas.width + canvas.height) * 0.02);

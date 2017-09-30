@@ -1,6 +1,6 @@
 {
   "name": "bubbly-bg",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "Lightweight and beautiful bubbly backgrounds",
   "main": "dist/bubbly-bg.js",
   "scripts": {

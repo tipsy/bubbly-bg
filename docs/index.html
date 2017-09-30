@@ -5,13 +5,11 @@
     bubbly({
         colorStart: "#111",
         colorStop: "#422",
-        animate: true,
         bubbleFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
     });
     bubbly({
         colorStart: "#4c004c",
         colorStop: "#1a001a",
-        animate: true,
         bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
     });
     bubbly({
@@ -19,10 +17,9 @@
         colorStop: "#ffe9e4",
         blur: 1,
         compose: "source-over",
-        animate: true,
         bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
     });
-    bubbly({animate: true}); // default is blue with white bubbles
+    bubbly(); // default is blue with white bubbles
     setInterval(() => {
         document.querySelectorAll("canvas").forEach(c => c.style.display = "none");
         document.querySelectorAll("canvas")[count++ % 4].style.display = "block"; // remove previous canvas

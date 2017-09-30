@@ -23,7 +23,7 @@ window.bubbly = function (config) {
         });
     }
     (function draw() {
-        if (c.animate) {
+        if (c.animate !== false) {
             requestAnimationFrame(draw);
         }
         context.globalCompositeOperation = "source-over";
