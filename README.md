@@ -1,17 +1,8 @@
-# bubbly-bg
+## bubbly-bg
 
-Beautiful bubbly backgrounds in 699 bytes (gzipped).
+Beautiful bubbly backgrounds in less than 1kb (699 bytes gzipped). 
 
-## Gif demo:
-![Bubbly animated](https://tipsy.github.io/bubbly-bg/bubbly.gif)
-
-## PNG demo:
-![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
-
-## Live demo:
-https://tipsy.github.io/bubbly-bg
-
-## Usage
+#### Usage
 Add bubbly to your webpage and call `bubbly()`: 
 ```html
 <body>
@@ -21,10 +12,23 @@ Add bubbly to your webpage and call `bubbly()`:
 <body
 ```
 
-## Implementation
-Bubbly creates a `canvas` element and appends it to the `body`. This element has `position: fixed` and `z-index: -1`, and always fills the width/height of the viewport, which should make it plug and play for most projects.
+Bubbly creates a canvas element and appends it to the body. This element has `position: fixed` and `z-index: -1`, and always fills the width/height of the viewport, which should make it plug and play for most projects.
 
-## Configuration
+### Live demo:
+https://tipsy.github.io/bubbly-bg
+
+### Gif demo:
+![Bubbly animated](https://tipsy.github.io/bubbly-bg/bubbly.gif)
+
+### PNG demo:
+![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
+
+### Installation
+* cdn: https://cdn.jsdelivr.net/npm/bubbly-bg/dist/bubbly-bg.min.js
+* node: `npm install bubbly-bg`
+* download js: https://raw.githubusercontent.com/tipsy/bubbly-bg/master/dist/bubbly-bg.js
+
+### Configuration / Docs / Options
 
 ```javascript
 bubbly({
