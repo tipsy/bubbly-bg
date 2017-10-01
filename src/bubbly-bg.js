@@ -32,25 +32,25 @@ window.bubbly = function (config) {
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.globalCompositeOperation = c.compose || "lighter";
-        bubbles.forEach(b => {
+        bubbles.forEach(bubble => {
             context.beginPath();
-            context.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            context.fillStyle = b.f;
+            context.arc(bubble.x, bubble.y, bubble.r, 0, Math.PI * 2);
+            context.fillStyle = bubble.f;
             context.fill();
             // update positions for next draw
-            b.x += Math.cos(b.a) * b.v;
-            b.y += Math.sin(b.a) * b.v;
-            if (b.x - b.r > canvas.width) {
-                b.x = -b.r;
+            bubble.x += Math.cos(bubble.a) * bubble.v;
+            bubble.y += Math.sin(bubble.a) * bubble.v;
+            if (bubble.x - bubble.r > canvas.width) {
+                bubble.x = -bubble.r;
             }
-            if (b.x + b.r < 0) {
-                b.x = canvas.width + b.r;
+            if (bubble.x + bubble.r < 0) {
+                bubble.x = canvas.width + bubble.r;
             }
-            if (b.y - b.r > canvas.height) {
-                b.y = -b.r;
+            if (bubble.y - bubble.r > canvas.height) {
+                bubble.y = -bubble.r;
             }
-            if (b.y + b.r < 0) {
-                b.y = canvas.height + b.r;
+            if (bubble.y + bubble.r < 0) {
+                bubble.y = canvas.height + bubble.r;
             }
         });
     })();
