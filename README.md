@@ -59,7 +59,7 @@ bubbly({
 });
 ```
 
-#### Purple with colored bubbles
+#### Purple with multicolored bubbles
 ```javascript
 bubbly({
     colorStart: "#4c004c",
