@@ -1,13 +1,13 @@
 ## bubbly-bg
 
-Beautiful bubbly backgrounds in less than 1kb (672 bytes gzipped).
+Beautiful bubbly backgrounds in less than 1kb (662 bytes gzipped).
 
 ### Usage
 Add bubbly to your webpage and call `bubbly()`: 
 ```html
 <body>
   ...
-  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.1/dist/bubbly-bg.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.2/dist/bubbly-bg.js"></script>
   <script>bubbly();</script>
 </body>
 ```
@@ -24,7 +24,7 @@ https://tipsy.github.io/bubbly-bg
 ![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
 
 ### Installation
-* cdn: https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.1/dist/bubbly-bg.js
+* cdn: https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.2/dist/bubbly-bg.js
 * node: `npm install bubbly-bg`
 * download: https://raw.githubusercontent.com/tipsy/bubbly-bg/master/dist/bubbly-bg.js
 
