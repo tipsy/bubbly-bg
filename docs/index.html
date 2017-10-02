@@ -1,7 +1,14 @@
+<style>
+    canvas {
+        opacity: 0;
+        transition: opacity 1500ms;
+    }
+</style>
 <body></body>
 <script src="bubbly-bg.js"></script>
 <script>
     let count = 0;
+    bubbly(); // default is blue with white bubbles
     bubbly({
         colorStart: "#111",
         colorStop: "#422",
@@ -19,9 +26,12 @@
         compose: "source-over",
         bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
     });
-    bubbly(); // default is blue with white bubbles
+    let fadeBgs = ["#25A6E1", "#422", "#4c004c", "#fff4e6"];
+    document.querySelectorAll("canvas")[0].style.opacity = "1";
+    document.documentElement.style.background = fadeBgs[1];
     setInterval(() => {
-        document.querySelectorAll("canvas").forEach(c => c.style.display = "none");
-        document.querySelectorAll("canvas")[count++ % 4].style.display = "block";
-    }, 2000);
+        document.querySelectorAll("canvas").forEach(c => c.style.opacity = "0");
+        document.querySelectorAll("canvas")[++count % 4].style.opacity = "1";
+        setTimeout(() => document.documentElement.style.background = fadeBgs[count % 4], 1500);
+    }, 3000);
 </script>
