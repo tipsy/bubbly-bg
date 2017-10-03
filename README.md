@@ -14,8 +14,7 @@ Add bubbly to your webpage and call `bubbly()`:
 
 Bubbly creates a `canvas` element and appends it to the `body`. This element has `position: fixed` and `z-index: -1`, and always fills the width/height of the viewport, which should make it plug and play for most projects.
 
-### Live demo:
-https://tipsy.github.io/bubbly-bg
+# Live demo: https://tipsy.github.io/bubbly-bg
 
 ### Gif demo:
 ![Bubbly animated](https://tipsy.github.io/bubbly-bg/bubbly.gif)
