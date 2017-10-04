@@ -29,6 +29,9 @@ window.bubbly = function (config) {
         });
     }
     (function draw() {
+        if (canvas.parentNode === null) {
+            return cancelAnimationFrame(draw)
+        }
         if (c.animate !== false) {
             requestAnimationFrame(draw);
         }
