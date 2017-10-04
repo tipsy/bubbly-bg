@@ -1,11 +1,15 @@
 window.bubbly = function (config) {
     const c = config || {};
     const r = () => Math.random();
-    const canvas = document.createElement("canvas");
-    canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
-    const width = canvas.width = window.innerWidth;
-    const height = canvas.height = window.innerHeight;
-    document.body.appendChild(canvas); // todo(tipsy): consider allowing custom canvas
+    const canvas = c.canvas || document.createElement("canvas");
+    let width = canvas.width;
+    let height = canvas.height;
+    if (canvas.parentNode === null) {
+        canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        document.body.appendChild(canvas);
+    }
     const context = canvas.getContext("2d");
     context.shadowColor = c.shadowColor || "#fff";
     context.shadowBlur = c.blur || 4;
