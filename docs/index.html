@@ -15,7 +15,7 @@
 
     <script src="bubbly-bg.js"></script>
     <script>
-        bubbly();
+        let stopBubbly = bubbly();
         let configs = [
             {},
             {
@@ -38,8 +38,8 @@
         ];
         document.addEventListener("click", function (e) {
             if (e.target.hasAttribute("data-config-nr")) {
-                document.body.removeChild(document.querySelector("canvas"));
-                bubbly(configs[e.target.getAttribute("data-config-nr")]);
+                stopBubbly();
+                stopBubbly = bubbly(configs[e.target.getAttribute("data-config-nr")]);
             }
         });
     </script>
