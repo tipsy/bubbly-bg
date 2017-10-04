@@ -1,0 +1,38 @@
+.overlay {
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    text-align: center;
+}
+
+.overlay h1 {
+    font: 24px monospace;
+}
+
+.examples {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.example {
+    width: 50%;
+}
+
+.example img {
+    cursor: pointer;
+    display: block;
+    width: calc(100% - 20px);
+    margin: 10px;
+}
+
+.example img:hover {
+    opacity: 0.8;
+}
+
+a {
+    color: #007ace;
+}
