@@ -14,8 +14,8 @@ window.bubbly = function (config) {
     context.shadowColor = c.shadowColor || "#fff";
     context.shadowBlur = c.blur || 4;
     const gradient = context.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, c.colorStart || "#25A6E1");
-    gradient.addColorStop(1, c.colorStop || "#176EB5");
+    gradient.addColorStop(0, c.colorStart || "#2AE");
+    gradient.addColorStop(1, c.colorStop || "#17B");
     const nrBubbles = c.bubbles || Math.floor((width + height) * 0.02);
     const bubbles = [];
     for (let i = 0; i < nrBubbles; i++) {
