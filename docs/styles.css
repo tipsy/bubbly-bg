@@ -5,8 +5,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.6);
-    padding: 20px;
+    padding: 10px;
     text-align: center;
+    max-width: 888px;
 }
 
 .overlay h1 {
