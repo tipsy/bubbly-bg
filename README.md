@@ -1,9 +1,11 @@
-## bubbly-bg
+# bubbly-bg
 
 Beautiful bubbly backgrounds in less than 1kb (662 bytes gzipped).
 
-### Usage
-Add bubbly to your webpage and call `bubbly()`: 
+## Usage
+
+Add bubbly to your webpage and call `bubbly()`:
+
 ```html
 <body>
   ...
@@ -14,15 +16,18 @@ Add bubbly to your webpage and call `bubbly()`:
 
 Bubbly creates a `canvas` element and appends it to the `body`. This element has `position: fixed` and `z-index: -1`, and always fills the width/height of the viewport, which should make it plug and play for most projects.
 
-# Live demo: https://tipsy.github.io/bubbly-bg
+## Live demo: https://tipsy.github.io/bubbly-bg
 
-### Gif demo:
+### Gif demo
+
 ![Bubbly animated](https://tipsy.github.io/bubbly-bg/bubbly.gif)
 
-### PNG demo:
+### PNG demo
+
 ![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
 
 ### Installation
+
 * cdn: https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.2/dist/bubbly-bg.js
 * node: `npm install bubbly-bg`
 * download: https://raw.githubusercontent.com/tipsy/bubbly-bg/master/dist/bubbly-bg.js
@@ -39,17 +44,21 @@ bubbly({
     colorStop: "#1a001a",// default is blue-ish
     compose: "lighter", // default is "lighter"
     shadowColor: "#0ff", // default is #fff
+    parent: '#myContainer', //default is body, only used if canvas option is not used
+    canvas: '#myCanvas' || document.getElementById('myCanvas') //auto created if not specified
 });
 ```
 
 ### Config from examples
 
 #### Blue with white bubbles
+
 ```javascript
 bubbly();
 ```
 
 #### Black/red with red bubbles
+
 ```javascript
 bubbly({
     colorStart: "#111",
@@ -59,6 +68,7 @@ bubbly({
 ```
 
 #### Purple with multicolored bubbles
+
 ```javascript
 bubbly({
     colorStart: "#4c004c",
@@ -68,6 +78,7 @@ bubbly({
 ```
 
 #### Yellow/pink with red/orange/yellow bubbles
+
 ```javascript
 bubbly({
     colorStart: "#fff4e6",

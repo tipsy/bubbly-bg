@@ -4,6 +4,7 @@
   "description": "Lightweight and beautiful bubbly backgrounds",
   "main": "dist/bubbly-bg.js",
   "scripts": {
+    "build": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
