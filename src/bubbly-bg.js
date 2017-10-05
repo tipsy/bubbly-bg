@@ -28,13 +28,10 @@ window.bubbly = function (config) {
             v: 0.1 + r() * 0.5 // velocity
         });
     }
-    (function draw() {
-        if (canvas.parentNode === null) {
-            return cancelAnimationFrame(draw)
-        }
-        if (c.animate !== false) {
-            requestAnimationFrame(draw);
-        }
+
+    let animationLoop;
+
+    function draw() {
         context.globalCompositeOperation = "source-over";
         context.fillStyle = gradient;
         context.fillRect(0, 0, width, height);
@@ -60,5 +57,20 @@ window.bubbly = function (config) {
                 bubble.y = height + bubble.r;
             }
         });
-    })();
+
+        animationLoop = requestAnimationFrame(draw);
+    };
+
+    function removeCanvas() {
+        canvas.parentNode.removeChild(canvas);
+    };
+
+    if (c.animate !== false && canvas.parentNode !== null) {
+        animationLoop = requestAnimationFrame(draw);
+        return () => {
+            cancelAnimationFrame(animationLoop);
+            removeCanvas();
+        }
+    }
+    return removeCanvas
 };

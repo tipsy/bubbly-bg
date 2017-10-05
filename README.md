@@ -3,7 +3,7 @@
 Beautiful bubbly backgrounds in less than 1kB (696 bytes gzipped).
 
 ### Usage
-Add bubbly to your webpage and call `bubbly()`: 
+Add bubbly to your webpage and call `bubbly()`:
 ```html
 <body>
   ...
@@ -32,7 +32,7 @@ You can also use bubbly with a canvas you create yourself, by including `{canvas
 ### Configuration / Docs / Options
 
 ```javascript
-bubbly({
+const stop = bubbly({
     animate: false, // default is true
     blur: 1, // default is 4
     bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`, // default is () => `hsla(0, 0%, 100%, ${r() * 0.1})`)
@@ -43,6 +43,8 @@ bubbly({
     compose: "lighter", // default is "lighter"
     shadowColor: "#0ff", // default is #fff
 });
+// ...
+stop() // Stop the animation and remove the canvas from the DOM
 ```
 
 ### Config from examples
