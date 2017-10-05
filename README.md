@@ -3,11 +3,11 @@
 Beautiful bubbly backgrounds in less than 1kB (696 bytes gzipped).
 
 ### Usage
-Add bubbly to your webpage and call `bubbly()`: 
+Add bubbly to your webpage and call `bubbly()`:
 ```html
 <body>
   ...
-  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly.umd.js"></script>
   <script>bubbly();</script>
 </body>
 ```
@@ -25,9 +25,9 @@ You can also use bubbly with a canvas you create yourself, by including `{canvas
 ![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
 
 ### Installation
-* cdn: https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js
+* cdn: https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly.umd.js
 * node: `npm install bubbly-bg`
-* download: https://raw.githubusercontent.com/tipsy/bubbly-bg/master/dist/bubbly-bg.js
+* download: https://raw.githubusercontent.com/tipsy/bubbly-bg/master/dist/bubbly.umd.js
 
 ### Configuration / Docs / Options
 
