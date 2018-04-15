@@ -24,7 +24,7 @@ window.bubbly = function (config) {
             x: r() * width, // x-position
             y: r() * height, // y-position
             r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
-            a: r() * Math.PI * 2, // angle
+            a: (c.angleFunc || (() => r() * Math.PI * 2)).call(), // angle
             v: (c.velocityFunc || (() => 0.1 + r() * 0.5)).call() // velocity
         });
     }
