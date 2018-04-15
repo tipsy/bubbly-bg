@@ -23,9 +23,9 @@ window.bubbly = function (config) {
             f: (c.bubbleFunc || (() => `hsla(0, 0%, 100%, ${r() * 0.1})`)).call(), // fillStyle
             x: r() * width, // x-position
             y: r() * height, // y-position
-            r: 4 + (r() * width / 25), // radius
+            r: (c.radiusFunc || (() => 4 + r() * width / 25)).call(), // radius
             a: r() * Math.PI * 2, // angle
-            v: 0.1 + r() * 0.5 // velocity
+            v: (c.velocityFunc || (() => 0.1 + r() * 0.5)).call() // velocity
         });
     }
     (function draw() {
