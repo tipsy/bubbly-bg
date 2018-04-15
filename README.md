@@ -1,6 +1,6 @@
 ## bubbly-bg
 
-Beautiful bubbly backgrounds in less than 1kB (696 bytes gzipped).
+Beautiful bubbly backgrounds in less than 1kB (750 bytes gzipped).
 
 ### Usage
 Add bubbly to your webpage and call `bubbly()`: 
