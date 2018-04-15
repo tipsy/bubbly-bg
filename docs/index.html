@@ -9,6 +9,8 @@
             <div class="example"><img data-config-nr="1" src="img/config1.png"></div>
             <div class="example"><img data-config-nr="2" src="img/config2.png"></div>
             <div class="example"><img data-config-nr="3" src="img/config3.png"></div>
+            <div class="example"><img data-config-nr="4" src="img/config4.png"></div>
+            <div class="example"><img data-config-nr="5" src="img/config5.png"></div>
         </div>
         <h1>Docs at <a href="https://github.com/tipsy/bubbly-bg">github.com/tipsy/bubbly-bg</a></h1>
     </div>
@@ -34,7 +36,28 @@
                 blur: 1,
                 compose: "source-over",
                 bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
-            }
+            },
+            {
+                blur: 15,
+                colorStart: "#194167",
+                colorStop: "#112144",
+                radiusFunc: () => 5 + Math.random() * 15,
+                angleFunc: () => -Math.PI / 2,
+                velocityFunc: () => Math.random() * 7.5,
+                bubbleFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 65%, .1)`,
+                bubbles: 350,
+            },
+            {
+                colorStart: "#d5d5d5",
+                colorStop: "#d5d5d5",
+                bubbles: 400,
+                blur: 1,
+                compose: "source-over",
+                bubbleFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 50%, .3)`,
+                angleFunc: () => Math.random() > 0.5 ? Math.PI : 2 * Math.PI,
+                velocityFunc: () => 1 + Math.random() * 10,
+                radiusFunc: () => Math.random() * 5
+            },
         ];
         document.addEventListener("click", function (e) {
             if (e.target.hasAttribute("data-config-nr")) {
