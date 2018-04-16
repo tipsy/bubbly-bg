@@ -7,7 +7,7 @@ Add bubbly to your webpage and call `bubbly()`:
 ```html
 <body>
   ...
-  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
   <script>bubbly();</script>
 </body>
 ```
@@ -25,7 +25,7 @@ You can also use bubbly with a canvas you create yourself, by including `{canvas
 ![Bubbly examples](https://tipsy.github.io/bubbly-bg/bubbly.png)
 
 ### Installation
-* cdn: https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js
+* cdn: https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js
 * node: `npm install bubbly-bg`
 * download: https://raw.githubusercontent.com/tipsy/bubbly-bg/master/dist/bubbly-bg.js
 
