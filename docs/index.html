@@ -2,8 +2,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <div class="notification"></div>
+    <div class="code"></div>
+
     <div class="overlay">
-        <h1>Click the examples to view them</h1>
+        <h1>Click the examples to view them.<br><br><small>The initialization code will be copied<br>to the clipboard.</small></h1>
         <div class="examples">
             <div class="example"><img data-config-nr="0" src="img/config0.png"></div>
             <div class="example"><img data-config-nr="1" src="img/config1.png"></div>
@@ -14,6 +18,8 @@
         </div>
         <h1>Docs at <a href="https://github.com/tipsy/bubbly-bg">github.com/tipsy/bubbly-bg</a></h1>
     </div>
+
+    <input type="text" value="" id="clipboard">
 
     <script src="bubbly-bg.js"></script>
     <script>
@@ -59,10 +65,47 @@
                 radiusFunc: () => Math.random() * 5
             },
         ];
+
+        function configToText(config){
+            var configText = "bubbly({\n";
+            Object.keys( config ).map(function(k,idx,arr){
+
+                if ( typeof config[k] === 'string' ){
+                    configText += "  " + k + ": '"  + config[k].toString() + "'";
+                } else {
+                    configText += "  " + k + ":"  + config[k].toString();
+                }
+
+                if( idx < arr.length-1){
+                    configText += ",";
+                }
+                configText += "\n";
+            });
+            configText += "});";
+            return configText;
+        }
+
         document.addEventListener("click", function (e) {
             if (e.target.hasAttribute("data-config-nr")) {
                 document.body.removeChild(document.querySelector("canvas"));
-                bubbly(configs[e.target.getAttribute("data-config-nr")]);
+                var bubblyConfig = configs[e.target.getAttribute("data-config-nr")];
+                bubbly(bubblyConfig);
+
+                var bubblyConfigText = configToText( bubblyConfig );
+
+                var $clipboard = document.getElementById("clipboard");
+                    $clipboard.value = "";
+                    $clipboard.value = bubblyConfigText;
+                    $clipboard.select();
+                document.execCommand("copy");
+                var $notification = document.querySelector(".notification");
+                    $notification.textContent = "Code copied to Clipboard";
+
+                var $code = document.querySelector(".code");
+                    $code.innerHTML = "<pre>" + bubblyConfigText + "</pre>";
+
+                $notification.style.opacity = $code.style.opacity = 1;
+                setTimeout(function(){ $notification.style.opacity = $code.style.opacity = 0; }, 2000)
             }
         });
     </script>
