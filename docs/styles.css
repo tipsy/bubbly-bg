@@ -43,3 +43,49 @@
 a {
     color: #007ace;
 }
+
+.code,
+.notification {
+    opacity: 0;
+    transition: all 500ms ease;
+    padding: 10px 20px;
+    background: black;
+    display: inline-block;
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    border-radius: 36px;
+    color: white;    
+    font: 12px monospace;
+}
+.code {
+    z-index: 100;
+    top: 85px;
+    background-color: rgba(0,0,0,0.7);
+}
+
+#clipboard {
+    position: absolute;
+    top     : 0;
+    left    : -10000px;
+}
+.example {
+    position: relative;
+}
+.example .config {
+    position        : absolute;
+    right           : 16px;
+    top             : 16px;
+    font            : 14px monospace;
+    color           : white;
+    background-color: rgba(0,0,0,0.2);
+    padding         : 6px 10px;
+    border-radius   : 10px;
+    z-index         : 1001;
+    cursor          : pointer;
+    border          : none;
+    font-size.      : 12px;
+}
+.example .config:hover {
+    background-color: rgba(0,0,0,0.6);
+}
