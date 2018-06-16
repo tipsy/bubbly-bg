@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" href="styles.css">
+    <script src="js/clipboard.min.js"></script>
 </head>
 <body>
 
@@ -7,14 +8,32 @@
     <div class="code"></div>
 
     <div class="overlay">
-        <h1>Click the examples to view them.<br><br><small>The initialization code will be copied<br>to the clipboard.</small></h1>
+        <h1>Click the examples to view them.</h1>
         <div class="examples">
-            <div class="example"><img data-config-nr="0" src="img/config0.png"></div>
-            <div class="example"><img data-config-nr="1" src="img/config1.png"></div>
-            <div class="example"><img data-config-nr="2" src="img/config2.png"></div>
-            <div class="example"><img data-config-nr="3" src="img/config3.png"></div>
-            <div class="example"><img data-config-nr="4" src="img/config4.png"></div>
-            <div class="example"><img data-config-nr="5" src="img/config5.png"></div>
+            <div class="example">
+                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
+                <img data-config-nr="0" src="img/config0.png">
+            </div>
+            <div class="example">
+                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
+                <img data-config-nr="1" src="img/config1.png">
+            </div>
+            <div class="example">
+                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
+                <img data-config-nr="2" src="img/config2.png">
+            </div>
+            <div class="example">
+                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
+                <img data-config-nr="3" src="img/config3.png">
+            </div>
+            <div class="example">
+                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
+                <img data-config-nr="4" src="img/config4.png">
+            </div>
+            <div class="example">
+                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
+                <img data-config-nr="5" src="img/config5.png">
+            </div>
         </div>
         <h1>Docs at <a href="https://github.com/tipsy/bubbly-bg">github.com/tipsy/bubbly-bg</a></h1>
     </div>
@@ -85,27 +104,31 @@
             return configText;
         }
 
+        var clipboard = new ClipboardJS('.config', {
+            text: function(trigger) {
+                var bubblyConfig = configs[trigger.nextElementSibling.getAttribute("data-config-nr")];
+                var bubblyConfigText = configToText( bubblyConfig );
+                var $notification = document.querySelector(".notification");
+                    $notification.textContent = "Code copied to Clipboard";
+                    $notification.style.opacity = 1;
+                setTimeout(function(){ $notification.style.opacity = /* $code.style.opacity = */ 0; }, 2000)
+                return bubblyConfigText;
+            }
+        });
+
+        clipboard.on('success', function(e) {
+            console.info('Text:', e.text);
+            e.clearSelection();
+        });
+
         document.addEventListener("click", function (e) {
+
             if (e.target.hasAttribute("data-config-nr")) {
+
                 document.body.removeChild(document.querySelector("canvas"));
                 var bubblyConfig = configs[e.target.getAttribute("data-config-nr")];
                 bubbly(bubblyConfig);
 
-                var bubblyConfigText = configToText( bubblyConfig );
-
-                var $clipboard = document.getElementById("clipboard");
-                    $clipboard.value = "";
-                    $clipboard.value = bubblyConfigText;
-                    $clipboard.select();
-                document.execCommand("copy");
-                var $notification = document.querySelector(".notification");
-                    $notification.textContent = "Code copied to Clipboard";
-
-                var $code = document.querySelector(".code");
-                    $code.innerHTML = "<pre>" + bubblyConfigText + "</pre>";
-
-                $notification.style.opacity = $code.style.opacity = 1;
-                setTimeout(function(){ $notification.style.opacity = $code.style.opacity = 0; }, 2000)
             }
         });
     </script>

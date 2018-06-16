@@ -48,7 +48,7 @@ a {
 .notification {
     opacity: 0;
     transition: all 500ms ease;
-    padding: 20px 40px;
+    padding: 10px 20px;
     background: black;
     display: inline-block;
     position: fixed;
@@ -56,7 +56,7 @@ a {
     right: 25px;
     border-radius: 36px;
     color: white;    
-    font: 14px monospace;
+    font: 12px monospace;
 }
 .code {
     z-index: 100;
@@ -72,25 +72,20 @@ a {
 .example {
     position: relative;
 }
-.example:hover:after {
-    opacity: 1;
+.example .config {
+    position        : absolute;
+    right           : 16px;
+    top             : 16px;
+    font            : 14px monospace;
+    color           : white;
+    background-color: rgba(0,0,0,0.2);
+    padding         : 6px 10px;
+    border-radius   : 10px;
+    z-index         : 1001;
+    cursor          : pointer;
+    border          : none;
+    font-size.      : 12px;
 }
-.example:after {
-    content: "";
-    position: absolute;
-    opacity: 0;
-    top: 50%;
-    left: 50%;
-    width: 68px;
-    height: 68px;
-    display: block;
-    z-index: 1001;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: opacity 400ms ease;
-    background-color: rgba(255,255,255,0.3);
-    background-image: url(img/copy-link.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    border-radius: 10px;
+.example .config:hover {
+    background-color: rgba(0,0,0,0.6);
 }
