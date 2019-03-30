@@ -39,6 +39,14 @@
             <b-input v-model="gradientStop" placeholder="Any type of color value"></b-input>
         </b-field>
     </div>
+    <div class="side-by-side">
+        <b-field label="Gradient angle" label-position="inside">
+            <b-input v-model="gradientAngle" placeholder="Any number" type="number" step="0.01"></b-input>
+        </b-field>
+        <b-field label="Gradient length" label-position="inside">
+            <b-input v-model="gradientLength" placeholder="Positive number" type="number" min="1"></b-input>
+        </b-field>
+    </div>
     <b-field label="Radius function" label-position="inside">
         <b-input v-model="radiusFunc" placeholder="Function for calculating radius"></b-input>
     </b-field>
@@ -71,6 +79,8 @@
             shadowColor: "#fff",
             gradientStart: "#2AE",
             gradientStop: "#17B",
+            gradientAngle: -0.79,
+            gradientLength: 127,
             radiusFunc: "4 + Math.random() * window.innerWidth / 25",
             fillFunc: "`hsla(0, 0%, 100%, ${Math.random() * 0.1})`",
             angleFunc: "Math.random() * Math.PI * 2",
@@ -118,6 +128,8 @@
                     shadowColor: this.shadowColor,
                     gradientStart: this.gradientStart,
                     gradientStop: this.gradientStop,
+                    gradientAngle: this.gradientAngle,
+                    gradientLength: this.gradientLength,
                     radiusFunc: eval("() => " + this.radiusFunc),
                     fillFunc: eval("() => " + this.fillFunc),
                     angleFunc: eval("() => " + this.angleFunc),

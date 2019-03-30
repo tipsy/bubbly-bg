@@ -76,6 +76,22 @@ function generateConfig(c) {
         document.body.appendChild(canvas);
         return canvas;
     })();
+
+    const gradientLength = c.gradientLength || Math.hypot(cv.width, cv.height);
+
+    const gradientAngle = c.gradientAngle || -Math.PI / 4;
+
+    const centerX = cv.width /2;
+    const centerY = cv.height /2;
+    const sinAngle = gradientLength * Math.sin(gradientAngle);
+    const cosAngle = gradientLength * Math.cos(gradientAngle)
+
+    const startX = centerX - cosAngle;
+    const startY = centerY - sinAngle;
+
+    const endX = centerX + cosAngle;
+    const endY = centerY + sinAngle;
+
     const mergedConfig = Object.assign({
         cv: cv,
         bubbles: Math.floor((cv.width + cv.height) * 0.02),
@@ -87,8 +103,10 @@ function generateConfig(c) {
         angleFunc: () => Math.random() * Math.PI * 2,
         velocityFunc: () => 0.1 + Math.random() * 0.5,
         animate: c.animate !== false,
+        gradientAngle: 1.67,
+        gradientLength: 200,
         ctx: cv.getContext("2d"),
-        gradient: cv.getContext("2d").createLinearGradient(0, 0, cv.width, cv.height),
+        gradient: cv.getContext("2d").createLinearGradient(startX, startY, endX, endY),
     }, c);
     mergedConfig.padding = mergedConfig.shadowBlur * 2 + 2;
     mergedConfig.gradient.addColorStop(0, c.gradientStart || "#2AE");
