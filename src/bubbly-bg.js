@@ -1,21 +1,19 @@
 window.bubbly = function (c = {}) {
-    c = getConfig(c);
+    c = generateConfig(c);
     const bubbles = [];
     for (let i = 0; i < c.bubbles; i++) {
         let radius = c.radiusFunc();
         const bubbleCanvas = document.createElement("canvas");
-        bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + c.padding;
+        bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + c.padding; // bubble + shadow/glow
         const bubbleCtx = bubbleCanvas.getContext("2d");
         bubbleCtx.shadowColor = c.shadowColor;
         bubbleCtx.shadowBlur = c.blur;
-        bubbleCtx.fillStyle = c.bubbleFunc();
+        bubbleCtx.fillStyle = c.fillFunc();
         bubbleCtx.beginPath();
         bubbleCtx.arc(radius + c.padding / 2, radius + c.padding / 2, radius, 0, Math.PI * 2);
         bubbleCtx.fill();
-        const bubbleImage = new Image();
-        bubbleImage.src = bubbleCanvas.toDataURL();
         bubbles.push({
-            img: bubbleImage,
+            img: createImage(bubbleCanvas),
             r: radius + c.padding, // bubble + shadow/glow
             x: Math.random() * c.cv.width,
             y: Math.random() * c.cv.height,
@@ -24,10 +22,7 @@ window.bubbly = function (c = {}) {
         });
     }
     (function draw() {
-        if (c.cv.parentNode === null) {
-            return cancelAnimationFrame(draw)
-        }
-        if (c.animate !== false) {
+        if (c.animate) {
             requestAnimationFrame(draw);
         }
         c.ctx.globalCompositeOperation = "source-over";
@@ -54,31 +49,37 @@ window.bubbly = function (c = {}) {
     })();
 };
 
-function getConfig(c) {
-    let cv = c.canvas;
-    if (!cv) {
-        cv = document.createElement("canvas");
-        cv.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
-        cv.width = window.innerWidth;
-        cv.height = window.innerHeight;
-        document.body.appendChild(cv);
-    }
-    let mergedConfig = Object.assign({ // default values
+const createImage = (canvas) => {
+    const img = new Image();
+    img.src = canvas.toDataURL();
+    return img;
+}
+
+function generateConfig(c) {
+    let cv = c.canvas || (() => {
+        let canvas = document.createElement("canvas");
+        canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        document.body.appendChild(canvas);
+        return canvas;
+    })();
+    const mergedConfig = Object.assign({
         cv: cv,
         bubbles: Math.floor((cv.width + cv.height) * 0.02),
         compose: "lighter",
         blur: 4,
         shadowColor: "#fff",
         radiusFunc: () => 4 + Math.random() * window.innerWidth / 25,
-        bubbleFunc: () => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`,
+        fillFunc: () => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`,
         angleFunc: () => Math.random() * Math.PI * 2,
         velocityFunc: () => 0.1 + Math.random() * 0.5,
-        animate: true,
+        animate: c.animate !== false,
+        ctx: cv.getContext("2d"),
+        gradient: cv.getContext("2d").createLinearGradient(0, 0, cv.width, cv.height),
     }, c);
-    mergedConfig.ctx = cv.getContext("2d");
-    mergedConfig.gradient = mergedConfig.ctx.createLinearGradient(0, 0, cv.width, cv.height);
+    mergedConfig.padding = mergedConfig.blur * 2;
     mergedConfig.gradient.addColorStop(0, c.colorStart || "#2AE");
     mergedConfig.gradient.addColorStop(1, c.colorStop || "#17B");
-    mergedConfig.padding = mergedConfig.blur * 2
     return mergedConfig;
 }
