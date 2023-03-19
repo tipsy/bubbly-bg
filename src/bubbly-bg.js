@@ -1,7 +1,6 @@
 window.bubbly = function (c = {}) {
     c = generateConfig(c);
-
-    function addBubble() {
+    const addBubble = () => {
         let radius = c.radiusFunc();
         const bubbleCanvas = document.createElement("canvas");
         bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + c.padding; // bubble + shadow/glow
@@ -21,9 +20,7 @@ window.bubbly = function (c = {}) {
             v: c.velocityFunc()
         });
     }
-
     let bubbles = [];
-    console.log(c.bubbles)
     for (let i = 0; i < c.bubbles; i++) {
         if (c.bubbles > 100) {
             setTimeout(addBubble, 10 * i); // create bubbles async so rendering is not blocked

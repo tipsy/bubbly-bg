@@ -3,45 +3,52 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.6);
-    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 24px;
     text-align: center;
-    border-radius: 25px;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
 }
 
-@media(min-width: 1100px) {
+.text, .text a {
+    font: 16px monospace;
+    font-weight: bold;
+    color: black;
+    text-shadow: 1px 1px 50px rgba(255, 255, 255, 1);
+}
+
+.text + .text {
+    margin-top: 6px;
+}
+
+@media (min-width: 1100px) {
     .overlay {
-        max-width: 40vw;
+        max-width: 60vw;
     }
-}
-
-.overlay h1 {
-    font: 24px monospace;
 }
 
 .examples {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .example {
-    width: 50%;
+    width: calc(33% - 12px);
+    margin-bottom: 24px;
 }
 
 .example img {
     cursor: pointer;
     display: block;
-    width: calc(100% - 20px);
-    margin: 10px;
-    border-radius: 10px;
+    width: 100%;
+    border-radius: 4px;
 }
 
 .example img:hover {
-    opacity: 0.8;
-}
-
-a {
-    color: #007ace;
+    filter: saturate(1.1) contrast(1.1);
 }
 
 .code,
@@ -55,37 +62,41 @@ a {
     top: 25px;
     right: 25px;
     border-radius: 36px;
-    color: white;    
+    color: white;
     font: 12px monospace;
 }
+
 .code {
     z-index: 100;
     top: 85px;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 #clipboard {
     position: absolute;
-    top     : 0;
-    left    : -10000px;
+    top: 0;
+    left: -10000px;
 }
+
 .example {
     position: relative;
 }
+
 .example .config {
-    position        : absolute;
-    right           : 16px;
-    top             : 16px;
-    font            : 14px monospace;
-    color           : white;
-    background-color: rgba(0,0,0,0.2);
-    padding         : 6px 10px;
-    border-radius   : 10px;
-    z-index         : 1001;
-    cursor          : pointer;
-    border          : none;
-    font-size.      : 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font: 14px monospace;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 6px 10px;
+    z-index: 1001;
+    cursor: pointer;
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
 }
+
 .example .config:hover {
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0, 0, 0, 0.5);
 }

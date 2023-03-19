@@ -4,129 +4,131 @@
 </head>
 <body>
 
-    <div class="notification"></div>
-    <div class="code"></div>
+<div class="notification"></div>
+<div class="code"></div>
 
-    <div class="overlay">
-        <h1>Click the examples to view them.</h1>
-        <div class="examples">
-            <div class="example">
-                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
-                <img data-config-nr="0" src="img/config0.png">
-            </div>
-            <div class="example">
-                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
-                <img data-config-nr="1" src="img/config1.png">
-            </div>
-            <div class="example">
-                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
-                <img data-config-nr="2" src="img/config2.png">
-            </div>
-            <div class="example">
-                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
-                <img data-config-nr="3" src="img/config3.png">
-            </div>
-            <div class="example">
-                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
-                <img data-config-nr="4" src="img/config4.png">
-            </div>
-            <div class="example">
-                <button class="config" data-clipboard-target="#clipboard">Copy Config</button>
-                <img data-config-nr="5" src="img/config5.png">
-            </div>
+<div class="overlay">
+    <div class="examples">
+        <div class="example">
+            <button class="config" data-clipboard-target="#clipboard">Copy</button>
+            <img data-config-nr="0" src="img/config0.png">
         </div>
-        <h1>Docs at <a href="https://github.com/tipsy/bubbly-bg">github.com/tipsy/bubbly-bg</a></h1>
+        <div class="example">
+            <button class="config" data-clipboard-target="#clipboard">Copy</button>
+            <img data-config-nr="1" src="img/config1.png">
+        </div>
+        <div class="example">
+            <button class="config" data-clipboard-target="#clipboard">Copy</button>
+            <img data-config-nr="2" src="img/config2.png">
+        </div>
+        <div class="example">
+            <button class="config" data-clipboard-target="#clipboard">Copy</button>
+            <img data-config-nr="3" src="img/config3.png">
+        </div>
+        <div class="example">
+            <button class="config" data-clipboard-target="#clipboard">Copy</button>
+            <img data-config-nr="4" src="img/config4.png">
+        </div>
+        <div class="example">
+            <button class="config" data-clipboard-target="#clipboard">Copy</button>
+            <img data-config-nr="5" src="img/config5.png">
+        </div>
     </div>
+    <div class="text">Click to change examples</div>
+    <div class="text"><a href="https://github.com/tipsy/bubbly-bg">github.com/tipsy/bubbly-bg</a></div>
+</div>
 
-    <input type="text" value="" id="clipboard">
+<input type="text" value="" id="clipboard">
 
-    <script src="bubbly-bg.js"></script>
-    <script>
-        bubbly();
-        let configs = [
-            {},
-            {
-                colorStart: "#111",
-                colorStop: "#422",
-                fillFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
-            },
-            {
-                colorStart: "#4c004c",
-                colorStop: "#1a001a",
-                fillFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
-            },
-            {
-                colorStart: "#fff4e6",
-                colorStop: "#ffe9e4",
-                blur: 1,
-                compose: "source-over",
-                fillFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
-            },
-            {
-                blur: 15,
-                colorStart: "#194167",
-                colorStop: "#112144",
-                radiusFunc: () => 5 + Math.random() * 15,
-                angleFunc: () => -Math.PI / 2,
-                velocityFunc: () => Math.random() * 7.5,
-                fillFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 65%, .1)`,
-                bubbles: 350,
-            },
-            {
-                colorStart: "#d5d5d5",
-                colorStop: "#d5d5d5",
-                bubbles: 400,
-                blur: 1,
-                compose: "source-over",
-                fillFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 50%, .3)`,
-                angleFunc: () => Math.random() > 0.5 ? Math.PI : 2 * Math.PI,
-                velocityFunc: () => 1 + Math.random() * 10,
-                radiusFunc: () => Math.random() * 5
-            },
-        ];
+<script src="bubbly-bg.js"></script>
+<script>
+    bubbly();
+    let configs = [
+        {},
+        {
+            colorStart: "#111",
+            colorStop: "#422",
+            fillFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
+        },
+        {
+            colorStart: "#4c004c",
+            colorStop: "#1a001a",
+            fillFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
+        },
+        {
+            colorStart: "#fff4e6",
+            colorStop: "#ffe9e4",
+            blur: 1,
+            compose: "source-over",
+            fillFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
+        },
+        {
+            blur: 15,
+            colorStart: "#194167",
+            colorStop: "#112144",
+            radiusFunc: () => 5 + Math.random() * 15,
+            angleFunc: () => -Math.PI / 2,
+            velocityFunc: () => Math.random() * 7.5,
+            fillFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 65%, .1)`,
+            bubbles: 350,
+        },
+        {
+            colorStart: "#d5d5d5",
+            colorStop: "#d5d5d5",
+            bubbles: 400,
+            blur: 1,
+            compose: "source-over",
+            fillFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 50%, .3)`,
+            angleFunc: () => Math.random() > 0.5 ? Math.PI : 2 * Math.PI,
+            velocityFunc: () => 1 + Math.random() * 10,
+            radiusFunc: () => Math.random() * 5
+        },
+    ];
 
-        function configToText(config){
-            let configText = "bubbly({\n";
-            Object.keys( config ).map(function(k,idx,arr){
+    function configToText(config) {
+        let configText = "bubbly({\n";
+        Object.keys(config).map(function (k, idx, arr) {
 
-                if ( typeof config[k] === 'string' ){
-                    configText += "  " + k + ": '"  + config[k].toString() + "'";
-                } else {
-                    configText += "  " + k + ":"  + config[k].toString();
-                }
+            if (typeof config[k] === 'string') {
+                configText += "  " + k + ": '" + config[k].toString() + "'";
+            } else {
+                configText += "  " + k + ":" + config[k].toString();
+            }
 
-                if( idx < arr.length-1){
-                    configText += ",";
-                }
-                configText += "\n";
-            });
-            configText += "});";
-            return configText;
+            if (idx < arr.length - 1) {
+                configText += ",";
+            }
+            configText += "\n";
+        });
+        configText += "});";
+        return configText;
+    }
+
+    let clipboard = new ClipboardJS('.config', {
+        text: function (trigger) {
+            let bubblyConfig = configs[trigger.nextElementSibling.getAttribute("data-config-nr")];
+            let bubblyConfigText = configToText(bubblyConfig);
+            let $notification = document.querySelector(".notification");
+            $notification.textContent = "Config copied to clipboard";
+            $notification.style.opacity = 1;
+            setTimeout(function () {
+                $notification.style.opacity = /* $code.style.opacity = */ 0;
+            }, 2000)
+            return bubblyConfigText;
         }
+    });
 
-        let clipboard = new ClipboardJS('.config', {
-            text: function(trigger) {
-                let bubblyConfig = configs[trigger.nextElementSibling.getAttribute("data-config-nr")];
-                let bubblyConfigText = configToText( bubblyConfig );
-                let $notification = document.querySelector(".notification");
-                    $notification.textContent = "Code copied to Clipboard";
-                    $notification.style.opacity = 1;
-                setTimeout(function(){ $notification.style.opacity = /* $code.style.opacity = */ 0; }, 2000)
-                return bubblyConfigText;
-            }
-        });
+    clipboard.on('success', function (e) {
+        console.info('Text:', e.text);
+        e.clearSelection();
+    });
 
-        clipboard.on('success', function(e) {
-            console.info('Text:', e.text);
-            e.clearSelection();
-        });
-
-        document.addEventListener("click", function (e) {
-            if (e.target.hasAttribute("data-config-nr")) {
-                document.body.removeChild(document.querySelector("canvas"));
-                let bubblyConfig = configs[e.target.getAttribute("data-config-nr")];
-                bubbly(bubblyConfig);
-            }
-        });
-    </script>
+    document.addEventListener("click", function (e) {
+        if (e.target.hasAttribute("data-config-nr")) {
+            document.body.removeChild(document.querySelector("canvas"));
+            let bubblyConfig = configs[e.target.getAttribute("data-config-nr")];
+            bubbly(bubblyConfig);
+        }
+    });
+</script>
 </body>
