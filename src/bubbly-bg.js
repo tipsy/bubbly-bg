@@ -1,7 +1,7 @@
 window.bubbly = function (c = {}) {
     c = generateConfig(c);
-    const bubbles = [];
-    for (let i = 0; i < c.bubbles; i++) {
+
+    function addBubble() {
         let radius = c.radiusFunc();
         const bubbleCanvas = document.createElement("canvas");
         bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + c.padding; // bubble + shadow/glow
@@ -21,14 +21,28 @@ window.bubbly = function (c = {}) {
             v: c.velocityFunc()
         });
     }
+
+    let bubbles = [];
+    console.log(c.bubbles)
+    for (let i = 0; i < c.bubbles; i++) {
+        if (c.bubbles > 100) {
+            setTimeout(addBubble, 10 * i); // create bubbles async so rendering is not blocked
+        } else {
+            addBubble(); // block the main thread until all bubbles are created
+        }
+    }
+    c.ctx.globalCompositeOperation = c.compose;
+    c.ctx.fillStyle = c.gradient;
     (function draw() {
+        if (c.cv.parentNode === null) {
+            bubbles = [];
+            return cancelAnimationFrame(draw);
+        }
         if (c.animate) {
             requestAnimationFrame(draw);
         }
-        c.ctx.globalCompositeOperation = "source-over";
-        c.ctx.fillStyle = c.gradient;
+        c.ctx.clearRect(0, 0, c.cv.width, c.cv.height);
         c.ctx.fillRect(0, 0, c.cv.width, c.cv.height);
-        c.ctx.globalCompositeOperation = c.compose;
         bubbles.forEach(bubble => {
             c.ctx.drawImage(bubble.img, bubble.x - bubble.r, bubble.y - bubble.r);
             bubble.x += Math.cos(bubble.a) * bubble.v;

@@ -86,7 +86,7 @@
         ];
 
         function configToText(config){
-            var configText = "bubbly({\n";
+            let configText = "bubbly({\n";
             Object.keys( config ).map(function(k,idx,arr){
 
                 if ( typeof config[k] === 'string' ){
@@ -104,11 +104,11 @@
             return configText;
         }
 
-        var clipboard = new ClipboardJS('.config', {
+        let clipboard = new ClipboardJS('.config', {
             text: function(trigger) {
-                var bubblyConfig = configs[trigger.nextElementSibling.getAttribute("data-config-nr")];
-                var bubblyConfigText = configToText( bubblyConfig );
-                var $notification = document.querySelector(".notification");
+                let bubblyConfig = configs[trigger.nextElementSibling.getAttribute("data-config-nr")];
+                let bubblyConfigText = configToText( bubblyConfig );
+                let $notification = document.querySelector(".notification");
                     $notification.textContent = "Code copied to Clipboard";
                     $notification.style.opacity = 1;
                 setTimeout(function(){ $notification.style.opacity = /* $code.style.opacity = */ 0; }, 2000)
@@ -122,13 +122,10 @@
         });
 
         document.addEventListener("click", function (e) {
-
             if (e.target.hasAttribute("data-config-nr")) {
-
                 document.body.removeChild(document.querySelector("canvas"));
-                var bubblyConfig = configs[e.target.getAttribute("data-config-nr")];
+                let bubblyConfig = configs[e.target.getAttribute("data-config-nr")];
                 bubbly(bubblyConfig);
-
             }
         });
     </script>
