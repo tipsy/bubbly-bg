@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bubbly config generator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.css">
+    <link rel="stylesheet" href="generator.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="notification"></div>
+<div id="app" v-cloak>
+    <b-field label="Number of bubbles" label-position="inside">
+        <b-input v-model="bubbles" placeholder="Integer or expression returning integer"></b-input>
+    </b-field>
+    <b-field label="Composite Type" label-position="inside">
+        <b-select v-model="selectedCompositeType">
+            <option v-for="type in compositeTypes" :value="type">{{ type }}</option>
+        </b-select>
+    </b-field>
+    <b-field label="Blur" label-position="inside">
+        <b-input v-model="blur" placeholder="Integer or expression returning integer"></b-input>
+    </b-field>
+    <b-field label="Shadow color" label-position="inside">
+        <b-input v-model="shadowColor" placeholder="Any type of color value"></b-input>
+    </b-field>
+    <div class="side-by-side">
+        <b-field label="Gradient start color" label-position="inside">
+            <b-input v-model="gradientStart" placeholder="Any type of color value"></b-input>
+        </b-field>
+        <b-field label="Gradient stop color" label-position="inside">
+            <b-input v-model="gradientStop" placeholder="Any type of color value"></b-input>
+        </b-field>
+    </div>
+    <b-field label="Radius function" label-position="inside">
+        <b-input v-model="radiusFunc" placeholder="Function for calculating radius"></b-input>
+    </b-field>
+    <b-field label="Fill function" label-position="inside">
+        <b-input v-model="fillFunc" placeholder="Function for calculating bubble color fill"></b-input>
+    </b-field>
+    <b-field label="Angle function" label-position="inside">
+        <b-input v-model="angleFunc" placeholder="Function for calculating direction"></b-input>
+    </b-field>
+    <b-field label="Velocity function" label-position="inside">
+        <b-input v-model="velocityFunc" placeholder="Function for calculating speed"></b-input>
+    </b-field>
+    <b-field class="radio-field">
+        <b-switch v-model="animate">Animate</b-switch>
+    </b-field>
+    <hr>
+    <div class="buttons">
+        <b-button type="is-dark" expanded @click="apply">Apply</b-button>
+        <b-button type="is-dark" expanded @click="$buefy.toast.open('Coming soon')">Copy</b-button>
+    </div>
+</div>
+<script src="bubbly-bg.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            bubbles: "30",
+            selectedCompositeType: "lighter",
+            blur: "1",
+            shadowColor: "#fff",
+            gradientStart: "#2AE",
+            gradientStop: "#17B",
+            radiusFunc: "4 + Math.random() * window.innerWidth / 25",
+            fillFunc: "`hsla(0, 0%, 100%, ${Math.random() * 0.1})`",
+            angleFunc: "Math.random() * Math.PI * 2",
+            velocityFunc: "0.1 + Math.random() * 0.5",
+            animate: true,
+            compositeTypes: [
+                "source-over",
+                "source-in",
+                "source-out",
+                "source-atop",
+                "destination-over",
+                "destination-in",
+                "destination-out",
+                "destination-atop",
+                "lighter",
+                "copy",
+                "xor",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity"
+            ]
+        },
+        created() {
+            bubbly();
+        },
+        methods: {
+            apply() {
+                document.body.removeChild(document.querySelector("canvas"));
+                bubbly({
+                    bubbles: eval(this.bubbles),
+                    compositeType: this.selectedCompositeType,
+                    blur: eval(this.blur),
+                    shadowColor: this.shadowColor,
+                    gradientStart: this.gradientStart,
+                    gradientStop: this.gradientStop,
+                    radiusFunc: eval("() => " + this.radiusFunc),
+                    fillFunc: eval("() => " + this.fillFunc),
+                    angleFunc: eval("() => " + this.angleFunc),
+                    velocityFunc: eval("() => " + this.velocityFunc),
+                    animate: this.animate
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

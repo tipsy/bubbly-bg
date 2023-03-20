@@ -22,7 +22,7 @@ window.bubbly = function (c = {}) {
     }
     let bubbles = [];
     for (let i = 0; i < c.bubbles; i++) {
-        if (c.bubbles > 100) {
+        if (c.bubbles > 100 && c.animate) {
             setTimeout(addBubble, 10 * i); // create bubbles async so rendering is not blocked
         } else {
             addBubble(); // block the main thread until all bubbles are created
@@ -30,7 +30,8 @@ window.bubbly = function (c = {}) {
     }
     c.ctx.globalCompositeOperation = c.compose;
     c.ctx.fillStyle = c.gradient;
-    (function draw() {
+    requestAnimationFrame(draw);
+    function draw() {
         if (c.cv.parentNode === null) {
             bubbles = [];
             return cancelAnimationFrame(draw);
@@ -57,7 +58,7 @@ window.bubbly = function (c = {}) {
                 bubble.y = c.cv.height + bubble.r;
             }
         });
-    })();
+    }
 };
 
 const createImage = (canvas) => {
@@ -90,7 +91,7 @@ function generateConfig(c) {
         gradient: cv.getContext("2d").createLinearGradient(0, 0, cv.width, cv.height),
     }, c);
     mergedConfig.padding = mergedConfig.blur * 2;
-    mergedConfig.gradient.addColorStop(0, c.colorStart || "#2AE");
-    mergedConfig.gradient.addColorStop(1, c.colorStop || "#17B");
+    mergedConfig.gradient.addColorStop(0, c.gradientStart || "#2AE");
+    mergedConfig.gradient.addColorStop(1, c.gradientStop || "#17B");
     return mergedConfig;
 }

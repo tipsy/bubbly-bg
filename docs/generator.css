@@ -1,0 +1,65 @@
+[v-cloak] {
+    display: none;
+}
+
+#app {
+    mix-blend-mode: hard-light;
+    width: 360px;
+    background: rgba(255, 255, 255, 0.1 );
+    height: 100vh;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#app select,
+#app .select {
+    width: 100%;
+}
+
+#app .select::after {
+    margin-top: -6px;
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+#app input,
+#app select {
+    font: 16px monospace;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    box-shadow: none !important;
+}
+
+#app .radio-field {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 10px;
+    border-radius: 4px;
+}
+
+::selection{
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#app .switch input[type=checkbox] + .check {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#app .switch input[type=checkbox]:checked + .check,
+#app .switch input[type=checkbox]:checked:hover {
+    background: #363636;
+}
+
+hr {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.side-by-side {
+    display: flex;
+    justify-content: space-between;
+}
+
+.side-by-side > * {
+    width: calc(50% - 6px);
+}

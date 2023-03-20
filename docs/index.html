@@ -46,26 +46,26 @@
     let configs = [
         {},
         {
-            colorStart: "#111",
-            colorStop: "#422",
+            gradientStart: "#111",
+            gradientStop: "#422",
             fillFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
         },
         {
-            colorStart: "#4c004c",
-            colorStop: "#1a001a",
+            gradientStart: "#4c004c",
+            gradientStop: "#1a001a",
             fillFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
         },
         {
-            colorStart: "#fff4e6",
-            colorStop: "#ffe9e4",
+            gradientStart: "#fff4e6",
+            gradientStop: "#ffe9e4",
             blur: 1,
             compose: "source-over",
             fillFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
         },
         {
             blur: 15,
-            colorStart: "#194167",
-            colorStop: "#112144",
+            gradientStart: "#194167",
+            gradientStop: "#112144",
             radiusFunc: () => 5 + Math.random() * 15,
             angleFunc: () => -Math.PI / 2,
             velocityFunc: () => Math.random() * 7.5,
@@ -73,8 +73,8 @@
             bubbles: 350,
         },
         {
-            colorStart: "#d5d5d5",
-            colorStop: "#d5d5d5",
+            gradientStart: "#d5d5d5",
+            gradientStop: "#d5d5d5",
             bubbles: 400,
             blur: 1,
             compose: "source-over",
