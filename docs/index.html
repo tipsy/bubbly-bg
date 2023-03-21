@@ -58,12 +58,12 @@
         {
             gradientStart: "#fff4e6",
             gradientStop: "#ffe9e4",
-            blur: 1,
+            shadowBlur: 1,
             compose: "source-over",
             fillFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
         },
         {
-            blur: 15,
+            shadowBlur: 15,
             gradientStart: "#194167",
             gradientStop: "#112144",
             radiusFunc: () => 5 + Math.random() * 15,
@@ -76,7 +76,7 @@
             gradientStart: "#d5d5d5",
             gradientStop: "#d5d5d5",
             bubbles: 400,
-            blur: 1,
+            shadowBlur: 1,
             compose: "source-over",
             fillFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 50%, .3)`,
             angleFunc: () => Math.random() > 0.5 ? Math.PI : 2 * Math.PI,

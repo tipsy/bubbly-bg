@@ -19,8 +19,8 @@
             <option v-for="type in compositeTypes" :value="type">{{ type }}</option>
         </b-select>
     </b-field>
-    <b-field label="Blur" label-position="inside">
-        <b-input v-model="blur" placeholder="Integer or expression returning integer"></b-input>
+    <b-field label="Shadow blur" label-position="inside">
+        <b-input v-model="shadowBlur" placeholder="Integer or expression returning integer"></b-input>
     </b-field>
     <b-field label="Shadow color" label-position="inside">
         <b-input v-model="shadowColor" placeholder="Any type of color value"></b-input>
@@ -64,7 +64,7 @@
         data: {
             bubbles: "30",
             selectedCompositeType: "lighter",
-            blur: "1",
+            shadowBlur: "1",
             shadowColor: "#fff",
             gradientStart: "#2AE",
             gradientStop: "#17B",
@@ -111,7 +111,7 @@
                 bubbly({
                     bubbles: eval(this.bubbles),
                     compose: this.selectedCompositeType,
-                    blur: eval(this.blur),
+                    shadowBlur: eval(this.shadowBlur),
                     shadowColor: this.shadowColor,
                     gradientStart: this.gradientStart,
                     gradientStop: this.gradientStop,

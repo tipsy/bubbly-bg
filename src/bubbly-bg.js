@@ -6,7 +6,7 @@ window.bubbly = function (c = {}) {
         bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + c.padding; // bubble + shadow/glow
         const bubbleCtx = bubbleCanvas.getContext("2d");
         bubbleCtx.shadowColor = c.shadowColor;
-        bubbleCtx.shadowBlur = c.blur;
+        bubbleCtx.shadowBlur = c.shadowBlur;
         bubbleCtx.fillStyle = c.fillFunc();
         bubbleCtx.beginPath();
         bubbleCtx.arc(radius + c.padding / 2, radius + c.padding / 2, radius, 0, Math.PI * 2);
@@ -80,7 +80,7 @@ function generateConfig(c) {
         cv: cv,
         bubbles: Math.floor((cv.width + cv.height) * 0.02),
         compose: "lighter",
-        blur: 4,
+        shadowBlur: 4,
         shadowColor: "#fff",
         radiusFunc: () => 4 + Math.random() * window.innerWidth / 25,
         fillFunc: () => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`,
@@ -90,7 +90,7 @@ function generateConfig(c) {
         ctx: cv.getContext("2d"),
         gradient: cv.getContext("2d").createLinearGradient(0, 0, cv.width, cv.height),
     }, c);
-    mergedConfig.padding = mergedConfig.blur * 2;
+    mergedConfig.padding = mergedConfig.shadowBlur * 2 + 2;
     mergedConfig.gradient.addColorStop(0, c.gradientStart || "#2AE");
     mergedConfig.gradient.addColorStop(1, c.gradientStop || "#17B");
     return mergedConfig;
