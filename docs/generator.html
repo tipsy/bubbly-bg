@@ -15,9 +15,12 @@
         <b-input v-model="bubbles" placeholder="Integer or expression returning integer"></b-input>
     </b-field>
     <b-field label="Composite Type" label-position="inside">
-        <b-select v-model="selectedCompositeType">
-            <option v-for="type in compositeTypes" :value="type">{{ type }}</option>
-        </b-select>
+        <b-autocomplete
+                :open-on-focus="true"
+                v-model="selectedCompositeType"
+                :data="compositeTypes"
+                placeholder="Choose an option"
+        ></b-autocomplete>
     </b-field>
     <b-field label="Shadow blur" label-position="inside">
         <b-input v-model="shadowBlur" placeholder="Integer or expression returning integer"></b-input>
@@ -75,15 +78,15 @@
             animate: true,
             compositeTypes: [
                 "source-over",
-                "source-in",
-                "source-out",
-                "source-atop",
-                "destination-over",
-                "destination-in",
-                "destination-out",
-                "destination-atop",
+                // "source-in", // white canvas
+                // "source-out", // white canvas
+                // "source-atop", // white canvas
+                // "destination-over", // no bubbles
+                // "destination-in", // white canvas
+                // "destination-out", // white canvas
+                // "destination-atop", // white canvas
                 "lighter",
-                "copy",
+                // "copy",
                 "xor",
                 "multiply",
                 "screen",
