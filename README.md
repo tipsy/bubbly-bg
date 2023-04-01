@@ -12,11 +12,16 @@ Add bubbly to your webpage and call `bubbly()`:
 </body>
 ```
 
-Bubbly creates a `canvas` element and appends it to the `body`. This element has `position: fixed` and `z-index: -1`, and always fills the width/height of the viewport, which should make it plug and play for most projects.
+Bubbly creates a `canvas` element and appends it to the `body`. 
+This element has `position: fixed` and `z-index: -1`, and always fills the
+width/height of the viewport, which should make it plug and play for most projects.
 
-You can also use bubbly with a canvas you create yourself, by including `{canvas: yourCanvas}` in the configuration.
+You can also use bubbly with a canvas you create yourself,
+by including `{canvas: yourCanvas}` in the configuration.
 
 # Live demo: https://tipsy.github.io/bubbly-bg
+
+## Config generator: https://tipsy.github.io/bubbly-bg/generator    
 
 ### Gif demo:
 ![Bubbly animated](https://tipsy.github.io/bubbly-bg/bubbly.gif)
@@ -33,15 +38,15 @@ You can also use bubbly with a canvas you create yourself, by including `{canvas
 
 ```javascript
 bubbly({
-    animate: false, // default is true
-    blur: 1, // default is 4
-    bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`, // default is () => `hsla(0, 0%, 100%, ${r() * 0.1})`)
-    bubbles: 100, // default is Math.floor((canvas.width + canvas.height) * 0.02);
-    canvas: document.querySelector("#background"), // default is created and attached
-    colorStart: "#4c004c", // default is blue-ish
-    colorStop: "#1a001a",// default is blue-ish
+    canvas: document.querySelector("#background"), // default is created and attached automatically
+    gradientStart: "#4c004c", // default is blue-ish
+    gradientStop: "#1a001a",// default is blue-ish
     compose: "lighter", // default is "lighter"
+    animate: false, // default is true
+    bubbles: Math.random() * 100, // default is Math.floor((canvas.width + canvas.height) * 0.02);
     shadowColor: "#0ff", // default is #fff
+    shadowBlur: 1, // default is 4
+    fillFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`, // default is () => `hsla(0, 0%, 100%, ${r() * 0.1})`)
     angleFunc: () => Math.random() * Math.PI * 2, // default is this
     velocityFunc: () => 0.1 + Math.random() * 0.5, // default is this
     radiusFunc: () => 4 + Math.random() * 25 // default is 4 + Math.random() * width / 25
@@ -58,28 +63,28 @@ bubbly();
 #### Black/red with red bubbles
 ```javascript
 bubbly({
-    colorStart: "#111",
-    colorStop: "#422",
-    bubbleFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
+    gradientStart: "#111",
+    gradientStop: "#422",
+    fillFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
 });
 ```
 
 #### Purple with multicolored bubbles
 ```javascript
 bubbly({
-    colorStart: "#4c004c",
-    colorStop: "#1a001a",
-    bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
+    gradientStart: "#4c004c",
+    gradientStop: "#1a001a",
+    fillFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
 });
 ```
 
 #### Yellow/pink with red/orange/yellow bubbles
 ```javascript
 bubbly({
-    colorStart: "#fff4e6",
-    colorStop: "#ffe9e4",
-    blur: 1,
+    gradientStart: "#fff4e6",
+    gradientStop: "#ffe9e4",
+    shadowBlur: 1,
     compose: "source-over",
-    bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
+    fillFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
 });
 ```

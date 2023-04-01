@@ -5,11 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.css">
-    <link rel="stylesheet" href="generator.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="generator.css">
+    <script src="bubbly-bg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.js"></script>
+    <script src="main.js"></script>
 </head>
 <body>
-<div class="notification"></div>
 <div id="app" v-cloak>
     <b-field label="Number of bubbles" label-position="inside">
         <b-input v-model="bubbles" placeholder="Integer or expression returning integer"></b-input>
@@ -54,14 +57,11 @@
     <hr>
     <div class="buttons">
         <b-button type="is-dark" expanded @click="apply">Apply</b-button>
-        <b-button type="is-dark" expanded @click="$buefy.toast.open('Coming soon')">Copy</b-button>
+        <b-button type="is-dark" expanded @click="copyConfig">Copy</b-button>
     </div>
 </div>
-<script src="bubbly-bg.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/buefy/dist/buefy.min.js"></script>
-<script src="js/clipboard.min.js"></script>
 <script>
+    bubbly();
     new Vue({
         el: "#app",
         data: {
@@ -105,13 +105,13 @@
                 "luminosity"
             ]
         },
-        created() {
-            bubbly();
-        },
         methods: {
             apply() {
                 document.body.removeChild(document.querySelector("canvas"));
-                bubbly({
+                bubbly(this.dataToConfig());
+            },
+            dataToConfig() {
+                return {
                     bubbles: eval(this.bubbles),
                     compose: this.selectedCompositeType,
                     shadowBlur: eval(this.shadowBlur),
@@ -123,7 +123,12 @@
                     angleFunc: eval("() => " + this.angleFunc),
                     velocityFunc: eval("() => " + this.velocityFunc),
                     animate: this.animate
-                });
+                }
+            },
+            copyConfig() {
+                navigator.clipboard.writeText(configToText(this.dataToConfig())).then(() => {
+                    this.$buefy.toast.open("Copied!");
+                })
             }
         }
     });

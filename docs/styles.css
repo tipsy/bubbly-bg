@@ -1,8 +1,19 @@
+[v-cloak] {
+    display: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .overlay {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.4);
     padding: 24px;
@@ -10,6 +21,7 @@
     border-radius: 4px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     backdrop-filter: blur(8px);
+    max-width: 90vw;
 }
 
 .text, .text a {
@@ -25,7 +37,7 @@
 
 @media (min-width: 1100px) {
     .overlay {
-        max-width: 60vw;
+        max-width: 800px;
     }
 }
 
@@ -40,6 +52,12 @@
     margin-bottom: 24px;
 }
 
+@media (max-width: 480px) {
+    .example {
+        width: calc(50% - 12px);
+    }
+}
+
 .example img {
     cursor: pointer;
     display: block;
@@ -51,38 +69,11 @@
     filter: saturate(1.1) contrast(1.1);
 }
 
-.code,
-.notification {
-    opacity: 0;
-    transition: all 500ms ease;
-    padding: 10px 20px;
-    background: black;
-    display: inline-block;
-    position: fixed;
-    top: 25px;
-    right: 25px;
-    border-radius: 36px;
-    color: white;
-    font: 12px monospace;
-}
-
-.code {
-    z-index: 100;
-    top: 85px;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-#clipboard {
-    position: absolute;
-    top: 0;
-    left: -10000px;
-}
-
 .example {
     position: relative;
 }
 
-.example .config {
+.example .copy {
     position: absolute;
     right: 0;
     top: 0;
@@ -99,4 +90,8 @@
 
 .example .config:hover {
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.toast {
+    background: rgba(0, 0, 0, 0.5) !important;
 }
