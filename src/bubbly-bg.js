@@ -78,13 +78,6 @@ function generateConfig(c) {
         return canvas;
     })();
 
-    const gradientAngle = c.gradientAngle || 45
-    const radians = gradientAngle * Math.PI / 180;
-    const startX = Math.cos(radians + Math.PI) * cv.width / 2 + cv.width / 2;
-    const startY = Math.sin(radians + Math.PI) * cv.height / 2 + cv.height / 2;
-    const endX = Math.cos(radians) * cv.width / 2 + cv.width / 2;
-    const endY = Math.sin(radians) * cv.height / 2 + cv.height / 2;
-
     const mergedConfig = Object.assign({
         cv: cv,
         bubbles: Math.floor((cv.width + cv.height) * 0.02),
@@ -95,12 +88,18 @@ function generateConfig(c) {
         fillFunc: () => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`,
         angleFunc: () => Math.random() * Math.PI * 2,
         velocityFunc: () => 0.1 + Math.random() * 0.5,
+        gradientFunc: gradientFunc,
         animate: c.animate !== false,
         ctx: cv.getContext("2d"),
-        gradient: cv.getContext("2d").createLinearGradient(startX, startY, endX, endY),
     }, c);
+    mergedConfig.gradient = mergedConfig.gradientFunc(mergedConfig.ctx);
     mergedConfig.padding = mergedConfig.shadowBlur * 2 + 2;
-    mergedConfig.gradient.addColorStop(0, c.gradientStart || "#2AE");
-    mergedConfig.gradient.addColorStop(1, c.gradientStop || "#17B");
     return mergedConfig;
+}
+
+const gradientFunc = (ctx) => {
+    const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+    gradient.addColorStop(0, "#2AE");
+    gradient.addColorStop(1, "#17B");
+    return gradient;
 }

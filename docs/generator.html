@@ -14,7 +14,7 @@
 </head>
 <body>
 <div id="app" v-cloak>
-        <b-field label="Number of bubbles" label-position="inside">
+    <b-field label="Number of bubbles" label-position="inside">
         <b-input v-model="bubbles" placeholder="Integer or expression returning integer"></b-input>
     </b-field>
     <b-field label="Composite Type" label-position="inside">
@@ -25,23 +25,17 @@
                 placeholder="Choose an option"
         ></b-autocomplete>
     </b-field>
-    <b-field label="Shadow blur" label-position="inside">
-        <b-input v-model="shadowBlur" placeholder="Integer or expression returning integer"></b-input>
-    </b-field>
-    <b-field label="Shadow color" label-position="inside">
-        <b-input v-model="shadowColor" placeholder="Any type of color value"></b-input>
-    </b-field>
     <div class="side-by-side">
-        <b-field label="Grad start color" label-position="inside">
-            <b-input v-model="gradientStart" placeholder="Any type of color value"></b-input>
+        <b-field label="Shadow color" label-position="inside">
+            <b-input v-model="shadowColor" placeholder="Any type of color value"></b-input>
         </b-field>
-        <b-field label="Grad stop color" label-position="inside">
-            <b-input v-model="gradientStop" placeholder="Any type of color value"></b-input>
-        </b-field>
-        <b-field label="Grad angle" label-position="inside">
-            <b-input v-model="gradientAngle" placeholder="Any number" type="text"></b-input>
+        <b-field label="Shadow blur" label-position="inside">
+            <b-input v-model="shadowBlur" placeholder="Integer or expression returning integer"></b-input>
         </b-field>
     </div>
+    <b-field label="Gradient function" label-position="inside">
+        <b-input v-model="gradientFunc" type="textarea" placeholder="Function for drawing gradient"></b-input>
+    </b-field>
     <b-field label="Radius function" label-position="inside">
         <b-input v-model="radiusFunc" placeholder="Function for calculating radius"></b-input>
     </b-field>
@@ -72,13 +66,17 @@
             selectedCompositeType: "lighter",
             shadowBlur: "1",
             shadowColor: "#fff",
-            gradientStart: "#2AE",
-            gradientStop: "#17B",
-            gradientAngle: 45,
             radiusFunc: "4 + Math.random() * window.innerWidth / 25",
             fillFunc: "`hsla(0, 0%, 100%, ${Math.random() * 0.1})`",
             angleFunc: "Math.random() * Math.PI * 2",
             velocityFunc: "0.1 + Math.random() * 0.5",
+            gradientFunc: `
+(ctx) => {
+    const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+    gradient.addColorStop(0, "#2AE");
+    gradient.addColorStop(1, "#17B");
+    return gradient;
+}`.trim(),
             animate: true,
             compositeTypes: [
                 "source-over",
@@ -120,9 +118,7 @@
                     compose: this.selectedCompositeType,
                     shadowBlur: eval(this.shadowBlur),
                     shadowColor: this.shadowColor,
-                    gradientStart: this.gradientStart,
-                    gradientStop: this.gradientStop,
-                    gradientAngle: this.gradientAngle,
+                    gradientFunc: eval(this.gradientFunc),
                     radiusFunc: eval("() => " + this.radiusFunc),
                     fillFunc: eval("() => " + this.fillFunc),
                     angleFunc: eval("() => " + this.angleFunc),
