@@ -29,10 +29,10 @@ window.bubbly = function (c = {}) {
         }
     }
     c.ctx.globalCompositeOperation = c.compose;
-    c.ctx.fillStyle = c.gradient;
     requestAnimationFrame(draw);
 
     function draw() {
+        c.ctx.fillStyle = c.canvasFillFunc(c.ctx);
         if (c.cv.parentNode === null) {
             bubbles = [];
             return cancelAnimationFrame(draw);
@@ -88,18 +88,10 @@ function generateConfig(c) {
         fillFunc: () => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`,
         angleFunc: () => Math.random() * Math.PI * 2,
         velocityFunc: () => 0.1 + Math.random() * 0.5,
-        gradientFunc: gradientFunc,
+        canvasFillFunc: () => "#2AE",
         animate: c.animate !== false,
         ctx: cv.getContext("2d"),
     }, c);
-    mergedConfig.gradient = mergedConfig.gradientFunc(mergedConfig.ctx);
     mergedConfig.padding = mergedConfig.shadowBlur * 2 + 2;
     return mergedConfig;
-}
-
-const gradientFunc = (ctx) => {
-    const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
-    gradient.addColorStop(0, "#2AE");
-    gradient.addColorStop(1, "#17B");
-    return gradient;
 }

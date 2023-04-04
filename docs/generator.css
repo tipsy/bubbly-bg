@@ -26,7 +26,7 @@ body {
     white-space: pre;
     overflow-wrap: normal;
     overflow-x: scroll;
-    min-height: 132px;
+    min-height: 138px;
     padding-bottom: 8px;
 }
 
@@ -57,7 +57,8 @@ input::placeholder {
 
 hr {
     height: 1px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.3);
+    margin: 12px 0;
 }
 
 .side-by-side {

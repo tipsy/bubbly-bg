@@ -39,8 +39,6 @@ by including `{canvas: yourCanvas}` in the configuration.
 ```javascript
 bubbly({
     canvas: document.querySelector("#background"), // default is created and attached automatically
-    gradientStart: "#4c004c", // default is blue-ish
-    gradientStop: "#1a001a",// default is blue-ish
     compose: "lighter", // default is "lighter"
     animate: false, // default is true
     bubbles: Math.random() * 100, // default is Math.floor((canvas.width + canvas.height) * 0.02);
