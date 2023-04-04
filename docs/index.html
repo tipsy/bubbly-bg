@@ -30,26 +30,42 @@
             configs: [
                 {},
                 {
-                    gradientStart: "#111",
-                    gradientStop: "#422",
+                    canvasFillFunc: (ctx) => {
+                        const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+                        gradient.addColorStop(0, "#111");
+                        gradient.addColorStop(1, "#422");
+                        return gradient;
+                    },
                     fillFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
                 },
                 {
-                    gradientStart: "#4c004c",
-                    gradientStop: "#1a001a",
+                    canvasFillFunc: (ctx) => {
+                        const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+                        gradient.addColorStop(0, "#4c004c");
+                        gradient.addColorStop(1, "#1a001a");
+                        return gradient;
+                    },
                     fillFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
                 },
                 {
-                    gradientStart: "#fff4e6",
-                    gradientStop: "#ffe9e4",
+                    canvasFillFunc: (ctx) => {
+                        const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+                        gradient.addColorStop(0, "#fff4e6");
+                        gradient.addColorStop(1, "#ffe9e4");
+                        return gradient;
+                    },
                     shadowBlur: 1,
                     compose: "source-over",
                     fillFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
                 },
                 {
+                    canvasFillFunc: (ctx) => {
+                        const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+                        gradient.addColorStop(0, "#194167");
+                        gradient.addColorStop(1, "#112144");
+                        return gradient;
+                    },
                     shadowBlur: 15,
-                    gradientStart: "#194167",
-                    gradientStop: "#112144",
                     radiusFunc: () => 5 + Math.random() * 15,
                     angleFunc: () => -Math.PI / 2,
                     velocityFunc: () => Math.random() * 7.5,
@@ -57,8 +73,12 @@
                     bubbles: 350,
                 },
                 {
-                    gradientStart: "#d5d5d5",
-                    gradientStop: "#d5d5d5",
+                    canvasFillFunc: (ctx) => {
+                        const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
+                        gradient.addColorStop(0, "#d5d5d5");
+                        gradient.addColorStop(1, "#d5d5d5");
+                        return gradient;
+                    },
                     bubbles: 400,
                     shadowBlur: 1,
                     compose: "source-over",
