@@ -31,6 +31,7 @@ window.bubbly = function (c = {}) {
     c.ctx.globalCompositeOperation = c.compose;
     c.ctx.fillStyle = c.gradient;
     requestAnimationFrame(draw);
+
     function draw() {
         if (c.cv.parentNode === null) {
             bubbles = [];
@@ -77,20 +78,12 @@ function generateConfig(c) {
         return canvas;
     })();
 
-    const gradientLength = c.gradientLength || Math.hypot(cv.width, cv.height);
-
-    const gradientAngle = c.gradientAngle || -Math.PI / 4;
-
-    const centerX = cv.width /2;
-    const centerY = cv.height /2;
-    const sinAngle = gradientLength * Math.sin(gradientAngle);
-    const cosAngle = gradientLength * Math.cos(gradientAngle)
-
-    const startX = centerX - cosAngle;
-    const startY = centerY - sinAngle;
-
-    const endX = centerX + cosAngle;
-    const endY = centerY + sinAngle;
+    const gradientAngle = c.gradientAngle || 45
+    const radians = gradientAngle * Math.PI / 180;
+    const startX = Math.cos(radians + Math.PI) * cv.width / 2 + cv.width / 2;
+    const startY = Math.sin(radians + Math.PI) * cv.height / 2 + cv.height / 2;
+    const endX = Math.cos(radians) * cv.width / 2 + cv.width / 2;
+    const endY = Math.sin(radians) * cv.height / 2 + cv.height / 2;
 
     const mergedConfig = Object.assign({
         cv: cv,
@@ -103,8 +96,6 @@ function generateConfig(c) {
         angleFunc: () => Math.random() * Math.PI * 2,
         velocityFunc: () => 0.1 + Math.random() * 0.5,
         animate: c.animate !== false,
-        gradientAngle: 1.67,
-        gradientLength: 200,
         ctx: cv.getContext("2d"),
         gradient: cv.getContext("2d").createLinearGradient(startX, startY, endX, endY),
     }, c);

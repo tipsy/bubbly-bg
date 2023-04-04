@@ -10,6 +10,7 @@ body {
     padding: 20px;
     backdrop-filter: blur(8px);
     border-right: 1px solid rgba(255, 255, 255, 0.5);
+    overflow: scroll;
 }
 
 #app input {
@@ -56,5 +57,9 @@ hr {
 }
 
 .side-by-side > * {
-    width: calc(50% - 6px);
+    width: calc(33% - 6px);
+}
+
+.field:not(:last-child) {
+    margin-bottom: 8px;
 }
