@@ -1,38 +1,44 @@
 window.bubbly = function (c = {}) {
     c = generateConfig(c);
     const addBubble = () => {
-        let radius = c.radiusFunc();
+        let radius = c.bubbles.radius();
+        const shadowConfig = c.bubbles.shadow();
+        const strokeConfig = c.bubbles.stroke();
+        const padding = 2 + (shadowConfig?.blur ?? 0) * 2 + (strokeConfig?.width ?? 0) * 2;
         const bubbleCanvas = document.createElement("canvas");
-        bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + c.padding; // bubble + shadow/glow
+        bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + padding; // bubble + shadow/glow
         const bubbleCtx = bubbleCanvas.getContext("2d");
-        bubbleCtx.shadowColor = c.shadowColor;
-        bubbleCtx.shadowBlur = c.shadowBlur;
-        bubbleCtx.fillStyle = c.fillFunc();
+        if (shadowConfig) {
+            bubbleCtx.shadowColor = shadowConfig.color;
+            bubbleCtx.shadowBlur = shadowConfig.blur;
+        }
+        bubbleCtx.fillStyle = c.bubbles.fill();
         bubbleCtx.beginPath();
-        bubbleCtx.arc(radius + c.padding / 2, radius + c.padding / 2, radius, 0, Math.PI * 2);
+        bubbleCtx.arc(radius + padding / 2, radius + padding / 2, radius, 0, Math.PI * 2);
         bubbleCtx.fill();
+        if (strokeConfig) {
+            bubbleCtx.strokeStyle = strokeConfig.color;
+            bubbleCtx.lineWidth = strokeConfig.width;
+            bubbleCtx.stroke();
+        }
         bubbles.push({
             img: createImage(bubbleCanvas),
-            r: radius + c.padding, // bubble + shadow/glow
+            r: radius + padding, // bubble + shadow/glow
             x: Math.random() * c.cv.width,
             y: Math.random() * c.cv.height,
-            a: c.angleFunc(),
-            v: c.velocityFunc()
+            a: c.bubbles.angle(),
+            v: c.bubbles.velocity()
         });
     }
     let bubbles = [];
-    for (let i = 0; i < c.bubbles; i++) {
-        if (c.bubbles > 100 && c.animate) {
-            setTimeout(addBubble, 10 * i); // create bubbles async so rendering is not blocked
-        } else {
-            addBubble(); // block the main thread until all bubbles are created
-        }
+    for (let i = 0; i < c.bubbles.count; i++) {
+        addBubble(); // blocks the main thread until all bubbles are created
     }
     c.ctx.globalCompositeOperation = c.compose;
     requestAnimationFrame(draw);
 
     function draw() {
-        c.ctx.fillStyle = c.canvasFillFunc(c.ctx);
+        c.ctx.fillStyle = c.background(c.ctx);
         if (c.cv.parentNode === null) {
             bubbles = [];
             return cancelAnimationFrame(draw);
@@ -78,20 +84,20 @@ function generateConfig(c) {
         return canvas;
     })();
 
-    const mergedConfig = Object.assign({
+    return {
         cv: cv,
-        bubbles: Math.floor((cv.width + cv.height) * 0.02),
-        compose: "lighter",
-        shadowBlur: 4,
-        shadowColor: "#fff",
-        radiusFunc: () => 4 + Math.random() * window.innerWidth / 25,
-        fillFunc: () => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`,
-        angleFunc: () => Math.random() * Math.PI * 2,
-        velocityFunc: () => 0.1 + Math.random() * 0.5,
-        canvasFillFunc: () => "#2AE",
+        compose: c.compose ?? "lighter",
+        bubbles: {
+            count: c.bubbles?.count ?? Math.floor((cv.width + cv.height) * 0.02),
+            radius: c.bubbles?.radius ?? (() => 4 + Math.random() * window.innerWidth / 25),
+            fill: c.bubbles?.fill ?? (() => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`),
+            angle: c.bubbles?.angle ?? (() => Math.random() * Math.PI * 2),
+            velocity: c.bubbles?.velocity ?? (() => 0.1 + Math.random() * 0.5),
+            shadow: c.bubbles?.shadow ?? (() => null), // ({blur: 4, color: "#fff"})
+            stroke: c.bubbles?.stroke ?? (() => null), // ({width: 2, color: "#fff"})
+        },
+        background: c.background ?? (() => "#2AE"),
         animate: c.animate !== false,
         ctx: cv.getContext("2d"),
-    }, c);
-    mergedConfig.padding = mergedConfig.shadowBlur * 2 + 2;
-    return mergedConfig;
+    };
 }

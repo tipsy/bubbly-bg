@@ -16,7 +16,7 @@
     <div class="examples">
         <div class="example" v-for="i in 6" :key="i">
             <button class="copy" @click="copyConfig(i-1)">Copy</button>
-            <img :data-config-nr="i-1" :src="'img/config'+(i-1)+'.png'" alt="Config screenshot" @click="changeBubbly(i-1)">
+            <img :data-config-nr="i-1" :src="'img/config'+(i-1)+'.png'" @click="changeBubbly(i-1)">
         </div>
     </div>
     <div class="text">Click to change examples</div>
@@ -30,62 +30,68 @@
             configs: [
                 {},
                 {
-                    canvasFillFunc: (ctx) => {
+                    background: (ctx) => {
                         const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
                         gradient.addColorStop(0, "#111");
                         gradient.addColorStop(1, "#422");
                         return gradient;
                     },
-                    fillFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`
+                    bubbles: {
+                        fill: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`,
+                        shadow: () => ({blur: 4, color: "#fff"}),
+                    },
                 },
                 {
-                    canvasFillFunc: (ctx) => {
+                    background: (ctx) => {
                         const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
                         gradient.addColorStop(0, "#4c004c");
                         gradient.addColorStop(1, "#1a001a");
                         return gradient;
                     },
-                    fillFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
+                    bubbles: {
+                        fill: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`,
+                        shadow: () => ({blur: 4, color: "#fff"}),
+                    },
                 },
                 {
-                    canvasFillFunc: (ctx) => {
+                    background: (ctx) => {
                         const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
                         gradient.addColorStop(0, "#fff4e6");
                         gradient.addColorStop(1, "#ffe9e4");
                         return gradient;
                     },
-                    shadowBlur: 1,
                     compose: "source-over",
-                    fillFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
+                    bubbles: {
+                        fill: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`,
+                        shadow: () => ({blur: 1, color: "#fff"}),
+                    },
                 },
                 {
-                    canvasFillFunc: (ctx) => {
+                    background: (ctx) => {
                         const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
                         gradient.addColorStop(0, "#194167");
                         gradient.addColorStop(1, "#112144");
                         return gradient;
                     },
-                    shadowBlur: 15,
-                    radiusFunc: () => 5 + Math.random() * 15,
-                    angleFunc: () => -Math.PI / 2,
-                    velocityFunc: () => Math.random() * 7.5,
-                    fillFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 65%, .1)`,
-                    bubbles: 350,
+                    bubbles: {
+                        count: 300,
+                        fill: () => `hsla(${200 + Math.random() * 50}, 100%, 65%, .1)`,
+                        shadow: () => ({blur: 15, color: "#fff"}),
+                        radius: () => 5 + Math.random() * 15,
+                        angle: () => -Math.PI / 2,
+                        velocity: () => 3 + Math.random() * 5.5,
+                    },
                 },
                 {
-                    canvasFillFunc: (ctx) => {
-                        const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, ctx.canvas.height);
-                        gradient.addColorStop(0, "#d5d5d5");
-                        gradient.addColorStop(1, "#d5d5d5");
-                        return gradient;
-                    },
-                    bubbles: 400,
-                    shadowBlur: 1,
+                    background: () => "#f9f9f9",
                     compose: "source-over",
-                    fillFunc: () => `hsla(${200 + Math.random() * 50}, 100%, 50%, .3)`,
-                    angleFunc: () => Math.random() > 0.5 ? Math.PI : 2 * Math.PI,
-                    velocityFunc: () => 1 + Math.random() * 10,
-                    radiusFunc: () => Math.random() * 5
+                    bubbles: {
+                        count: 200,
+                        fill: () => `hsla(${150 + Math.random() * 100}, 100%, 50%, .3)`,
+                        radius: () => 1 + Math.random() * 4,
+                        angle: () => Math.random() > 0.5 ? Math.PI : 2 * Math.PI,
+                        velocity: () => 4 + Math.random() * 4,
+                    },
                 },
             ],
         },
