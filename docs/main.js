@@ -15,10 +15,10 @@ bubbly({
     },
     background: ${formatFunction(config.background, 4)},
     animate: ${config.animate},
-});`.trim();
-        // .split('\n')
-        // .filter(line => !line.includes(': undefined,')) // remove undefined values
-        // .join('\n');
+});`.trim()
+        .split('\n')
+        .filter(line => !line.includes(': undefined,')) // remove undefined values
+        .join('\n');
 }
 
 function formatFunction(func, baseIndent) {
