@@ -73,14 +73,25 @@
                         gradient.addColorStop(1, "#112144");
                         return gradient;
                     },
-                    bubbles: {
-                        count: 300,
-                        fill: () => `hsla(${200 + Math.random() * 50}, 100%, 65%, .1)`,
-                        shadow: () => ({blur: 15, color: "#fff"}),
-                        radius: () => 5 + Math.random() * 15,
-                        angle: () => -Math.PI / 2,
-                        velocity: () => 3 + Math.random() * 5.5,
-                    },
+                    customBubbles: Array.from({ length: 300 }, () => ({
+                        fill: `hsla(${200 + Math.random() * 50}, 100%, 65%, .1)`,
+                        shadow: {blur: 15, color: "#fff"},
+                        r: 5 + Math.random() * 15,
+                        a: -Math.PI / 2,
+                        v: 3 + Math.random() * 5.5,
+                        x: Math.random() * window.innerWidth,
+                        y: Math.random() * window.innerHeight,
+                        draw: (ctx, bubble) => {
+                            if (bubble.shadow) {
+                                ctx.shadowColor = bubble.shadow.color;
+                                ctx.shadowBlur = bubble.shadow.blur;
+                            }
+                            ctx.fillStyle = bubble.fill;
+                            ctx.beginPath();
+                            ctx.arc(bubble.x, bubble.y, bubble.r, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                    })),
                 },
                 {
                     background: () => "#f9f9f9",
