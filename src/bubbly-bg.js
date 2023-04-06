@@ -1,4 +1,5 @@
 window.bubbly = function (userConfig = {}) {
+    // we need to create a canvas element if the user didn't provide one
     const cv = userConfig.canvas ?? (() => {
         let canvas = document.createElement("canvas");
         canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
@@ -8,20 +9,22 @@ window.bubbly = function (userConfig = {}) {
         return canvas;
     })();
     const ctx = cv.getContext("2d");
-    const {compose, bubbles, background, animate} = { // create config by merging defaults with user config
+    // we destructure the config object (with default values as fallback)
+    const {compose, bubbles, background, animate} = {
         compose: userConfig.compose ?? "lighter",
-        bubbles: {
-            count: userConfig.bubbles?.count ?? Math.floor((cv.width + cv.height) * 0.02),
-            radius: userConfig.bubbles?.radius ?? (() => 4 + Math.random() * window.innerWidth / 25),
-            fill: userConfig.bubbles?.fill ?? (() => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`),
-            angle: userConfig.bubbles?.angle ?? (() => Math.random() * Math.PI * 2),
-            velocity: userConfig.bubbles?.velocity ?? (() => 0.1 + Math.random() * 0.5),
-            shadow: userConfig.bubbles?.shadow ?? (() => null), // ({blur: 4, color: "#fff"})
-            stroke: userConfig.bubbles?.stroke ?? (() => null), // ({width: 2, color: "#fff"})
-        },
+        bubbles: Object.assign({ // default values
+            count: Math.floor((cv.width + cv.height) * 0.02),
+            radius: () => 4 + Math.random() * window.innerWidth / 25,
+            fill: () => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`,
+            angle: () => Math.random() * Math.PI * 2,
+            velocity: () => 0.1 + Math.random() * 0.5,
+            shadow: () => null, // ({blur: 4, color: "#fff"})
+            stroke: () => null, // ({width: 2, color: "#fff"})
+        }, userConfig.bubbles ?? {}),
         background: userConfig.background ?? (() => "#2AE"),
         animate: userConfig.animate !== false,
     }
+    // this function contains a lot of references to its parent scope, so it must be defined after the config is created
     bubbles.objectCreator = userConfig.bubbles?.objectCreator ?? (() => ({
         r: bubbles.radius(),
         f: bubbles.fill(),
@@ -49,7 +52,6 @@ window.bubbly = function (userConfig = {}) {
     }));
     let bubbleArray = Array.from({length: bubbles.count}, bubbles.objectCreator);
     requestAnimationFrame(draw);
-
     function draw() {
         if (cv.parentNode === null) {
             bubbleArray = [];
