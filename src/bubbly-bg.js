@@ -1,30 +1,6 @@
 window.bubbly = function (c = {}) {
     c = generateConfig(c);
-    let bubbles = c.customBubbles ?? Array.from({ length: c.bubbles.count }, () => ({
-        r: c.bubbles.radius(),
-        f: c.bubbles.fill(),
-        x: Math.random() * c.cv.width,
-        y: Math.random() * c.cv.height,
-        a: c.bubbles.angle(),
-        v: c.bubbles.velocity(),
-        sh: c.bubbles.shadow(),
-        st: c.bubbles.stroke(),
-        draw: (ctx, bubble) => {
-            if (bubble.sh) {
-                ctx.shadowColor = bubble.sh.color;
-                ctx.shadowBlur = bubble.sh.blur;
-            }
-            ctx.fillStyle = bubble.f;
-            ctx.beginPath();
-            ctx.arc(bubble.x, bubble.y, bubble.r, 0, Math.PI * 2);
-            ctx.fill();
-            if (bubble.st) {
-                ctx.strokeStyle = bubble.st.color;
-                ctx.lineWidth = bubble.st.width;
-                ctx.stroke();
-            }
-        }
-    }));
+    let bubbles = Array.from({length: c.bubbles.count}, c.bubbles.objectCreator);
     requestAnimationFrame(draw);
     function draw() {
         if (c.cv.parentNode === null) {
@@ -68,7 +44,7 @@ function generateConfig(c) {
         return canvas;
     })();
 
-    return {
+    const cfg = {
         cv: cv,
         compose: c.compose ?? "lighter",
         bubbles: {
@@ -80,9 +56,35 @@ function generateConfig(c) {
             shadow: c.bubbles?.shadow ?? (() => null), // ({blur: 4, color: "#fff"})
             stroke: c.bubbles?.stroke ?? (() => null), // ({width: 2, color: "#fff"})
         },
-        customBubbles: c.customBubbles ?? null,
         background: c.background ?? (() => "#2AE"),
         animate: c.animate !== false,
         ctx: cv.getContext("2d"),
     };
+    // we need to do this after because you can't reference an object before it's defined
+    cfg.bubbles.objectCreator = c.bubbles?.objectCreator ?? (() => ({
+        r: cfg.bubbles.radius(),
+        f: cfg.bubbles.fill(),
+        x: Math.random() * cfg.cv.width,
+        y: Math.random() * cfg.cv.height,
+        a: cfg.bubbles.angle(),
+        v: cfg.bubbles.velocity(),
+        sh: cfg.bubbles.shadow(),
+        st: cfg.bubbles.stroke(),
+        draw: (ctx, bubble) => {
+            if (bubble.sh) {
+                ctx.shadowColor = bubble.sh.color;
+                ctx.shadowBlur = bubble.sh.blur;
+            }
+            ctx.fillStyle = bubble.f;
+            ctx.beginPath();
+            ctx.arc(bubble.x, bubble.y, bubble.r, 0, Math.PI * 2);
+            ctx.fill();
+            if (bubble.st) {
+                ctx.strokeStyle = bubble.st.color;
+                ctx.lineWidth = bubble.st.width;
+                ctx.stroke();
+            }
+        }
+    }));
+    return cfg;
 }
