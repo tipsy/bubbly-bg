@@ -1,5 +1,5 @@
-window.bubbly = function (cfg = {}) {
-    const cv = cfg.canvas || (() => {
+window.bubbly = function (userConfig = {}) {
+    const cv = userConfig.canvas ?? (() => {
         let canvas = document.createElement("canvas");
         canvas.setAttribute("style", "position:fixed;z-index:-1;left:0;top:0;min-width:100vw;min-height:100vh;");
         canvas.width = window.innerWidth;
@@ -8,29 +8,29 @@ window.bubbly = function (cfg = {}) {
         return canvas;
     })();
     const ctx = cv.getContext("2d");
-    const c = { // create config by merging defaults with user config
-        compose: cfg.compose ?? "lighter",
+    const {compose, bubbles, background, animate} = { // create config by merging defaults with user config
+        compose: userConfig.compose ?? "lighter",
         bubbles: {
-            count: cfg.bubbles?.count ?? Math.floor((cv.width + cv.height) * 0.02),
-            radius: cfg.bubbles?.radius ?? (() => 4 + Math.random() * window.innerWidth / 25),
-            fill: cfg.bubbles?.fill ?? (() => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`),
-            angle: cfg.bubbles?.angle ?? (() => Math.random() * Math.PI * 2),
-            velocity: cfg.bubbles?.velocity ?? (() => 0.1 + Math.random() * 0.5),
-            shadow: cfg.bubbles?.shadow ?? (() => null), // ({blur: 4, color: "#fff"})
-            stroke: cfg.bubbles?.stroke ?? (() => null), // ({width: 2, color: "#fff"})
+            count: userConfig.bubbles?.count ?? Math.floor((cv.width + cv.height) * 0.02),
+            radius: userConfig.bubbles?.radius ?? (() => 4 + Math.random() * window.innerWidth / 25),
+            fill: userConfig.bubbles?.fill ?? (() => `hsla(0, 0%, 100%, ${Math.random() * 0.1})`),
+            angle: userConfig.bubbles?.angle ?? (() => Math.random() * Math.PI * 2),
+            velocity: userConfig.bubbles?.velocity ?? (() => 0.1 + Math.random() * 0.5),
+            shadow: userConfig.bubbles?.shadow ?? (() => null), // ({blur: 4, color: "#fff"})
+            stroke: userConfig.bubbles?.stroke ?? (() => null), // ({width: 2, color: "#fff"})
         },
-        background: cfg.background ?? (() => "#2AE"),
-        animate: cfg.animate !== false,
+        background: userConfig.background ?? (() => "#2AE"),
+        animate: userConfig.animate !== false,
     }
-    c.bubbles.objectCreator = cfg.bubbles?.objectCreator ?? (() => ({
-        r: c.bubbles.radius(),
-        f: c.bubbles.fill(),
+    bubbles.objectCreator = userConfig.bubbles?.objectCreator ?? (() => ({
+        r: bubbles.radius(),
+        f: bubbles.fill(),
         x: Math.random() * cv.width,
         y: Math.random() * cv.height,
-        a: c.bubbles.angle(),
-        v: c.bubbles.velocity(),
-        sh: c.bubbles.shadow(),
-        st: c.bubbles.stroke(),
+        a: bubbles.angle(),
+        v: bubbles.velocity(),
+        sh: bubbles.shadow(),
+        st: bubbles.stroke(),
         draw: (ctx, bubble) => {
             if (bubble.sh) {
                 ctx.shadowColor = bubble.sh.color;
@@ -47,21 +47,22 @@ window.bubbly = function (cfg = {}) {
             }
         }
     }));
-    let bubbles = Array.from({length: c.bubbles.count}, c.bubbles.objectCreator);
+    let bubbleArray = Array.from({length: bubbles.count}, bubbles.objectCreator);
     requestAnimationFrame(draw);
+
     function draw() {
         if (cv.parentNode === null) {
-            bubbles = [];
+            bubbleArray = [];
             return cancelAnimationFrame(draw);
         }
-        if (c.animate) {
+        if (animate) {
             requestAnimationFrame(draw);
         }
         ctx.globalCompositeOperation = "source-over";
-        ctx.fillStyle = c.background(ctx);
+        ctx.fillStyle = background(ctx);
         ctx.fillRect(0, 0, cv.width, cv.height);
-        ctx.globalCompositeOperation = c.compose;
-        bubbles.forEach(bubble => {
+        ctx.globalCompositeOperation = compose;
+        for (const bubble of bubbleArray) {
             bubble.draw(ctx, bubble);
             bubble.x += Math.cos(bubble.a) * bubble.v;
             bubble.y += Math.sin(bubble.a) * bubble.v;
@@ -77,6 +78,6 @@ window.bubbly = function (cfg = {}) {
             if (bubble.y + bubble.r < 0) {
                 bubble.y = cv.height + bubble.r;
             }
-        });
+        }
     }
 };
