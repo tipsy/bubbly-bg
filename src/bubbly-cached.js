@@ -1,21 +1,44 @@
 window.bubbly = function (c = {}) {
     c = generateConfig(c);
-    let bubbles = [];
-    for (let i = 0; i < c.bubbles.count; i++) {
+    const addBubble = () => {
         let radius = c.bubbles.radius();
+        const shadowConfig = c.bubbles.shadow();
+        const strokeConfig = c.bubbles.stroke();
+        const padding = 2 + (shadowConfig?.blur ?? 0) * 2 + (strokeConfig?.width ?? 0) * 2;
+        const bubbleCanvas = document.createElement("canvas");
+        bubbleCanvas.width = bubbleCanvas.height = (radius * 2) + padding; // bubble + shadow/glow
+        const bubbleCtx = bubbleCanvas.getContext("2d");
+        if (shadowConfig) {
+            bubbleCtx.shadowColor = shadowConfig.color;
+            bubbleCtx.shadowBlur = shadowConfig.blur;
+        }
+        bubbleCtx.fillStyle = c.bubbles.fill();
+        bubbleCtx.beginPath();
+        bubbleCtx.arc(radius + padding / 2, radius + padding / 2, radius, 0, Math.PI * 2);
+        bubbleCtx.fill();
+        if (strokeConfig) {
+            bubbleCtx.strokeStyle = strokeConfig.color;
+            bubbleCtx.lineWidth = strokeConfig.width;
+            bubbleCtx.stroke();
+        }
         bubbles.push({
-            r: radius,
+            img: createImage(bubbleCanvas),
+            r: radius + padding, // bubble + shadow/glow
             x: Math.random() * c.cv.width,
             y: Math.random() * c.cv.height,
-            f: c.bubbles.fill(),
             a: c.bubbles.angle(),
-            v: c.bubbles.velocity(),
-            sh: c.bubbles.shadow(),
-            st: c.bubbles.stroke(),
+            v: c.bubbles.velocity()
         });
     }
+    let bubbles = [];
+    for (let i = 0; i < c.bubbles.count; i++) {
+        addBubble(); // blocks the main thread until all bubbles are created
+    }
+    c.ctx.globalCompositeOperation = c.compose;
     requestAnimationFrame(draw);
+
     function draw() {
+        c.ctx.fillStyle = c.background(c.ctx);
         if (c.cv.parentNode === null) {
             bubbles = [];
             return cancelAnimationFrame(draw);
@@ -23,24 +46,10 @@ window.bubbly = function (c = {}) {
         if (c.animate) {
             requestAnimationFrame(draw);
         }
-        c.ctx.globalCompositeOperation = "source-over";
-        c.ctx.fillStyle = c.background(c.ctx);
+        c.ctx.clearRect(0, 0, c.cv.width, c.cv.height);
         c.ctx.fillRect(0, 0, c.cv.width, c.cv.height);
-        c.ctx.globalCompositeOperation = c.compose;
         bubbles.forEach(bubble => {
-            if (bubble.sh) {
-                c.ctx.shadowColor = bubble.sh.color;
-                c.ctx.shadowBlur = bubble.sh.blur;
-            }
-            c.ctx.fillStyle = bubble.f;
-            c.ctx.beginPath();
-            c.ctx.arc(bubble.x, bubble.y, bubble.r, 0, Math.PI * 2);
-            c.ctx.fill();
-            if (bubble.st) {
-                c.ctx.strokeStyle = bubble.st.color;
-                c.ctx.lineWidth = bubble.st.width;
-                c.ctx.stroke();
-            }
+            c.ctx.drawImage(bubble.img, bubble.x - bubble.r, bubble.y - bubble.r);
             bubble.x += Math.cos(bubble.a) * bubble.v;
             bubble.y += Math.sin(bubble.a) * bubble.v;
             if (bubble.x - bubble.r > c.cv.width) {
@@ -58,6 +67,12 @@ window.bubbly = function (c = {}) {
         });
     }
 };
+
+const createImage = (canvas) => {
+    const img = new Image();
+    img.src = canvas.toDataURL();
+    return img;
+}
 
 function generateConfig(c) {
     let cv = c.canvas || (() => {
