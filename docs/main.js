@@ -12,15 +12,16 @@ bubbly({
       shadow: ${config.bubbles?.shadow},
       stroke: ${config.bubbles?.stroke},
   },
-  background: ${formatBackgroundFunction(config.background)},
+  background: ${formatFunction(config.background)},
   animate: ${config.animate},
+  customBubbles: ${formatFunction(config.customBubbles)},
 });`.trim();    
         // .split('\n')
         // .filter(line => !line.includes(': undefined,')) // remove undefined values
         // .join('\n');
 }
 
-function formatBackgroundFunction(func) {
+function formatFunction(func) {
     if (!func) return undefined
     if (func.toString().split("\n").length === 1) return func.toString();
     const lines = func.toString().split("\n");
