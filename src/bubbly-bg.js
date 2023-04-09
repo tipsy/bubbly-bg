@@ -24,7 +24,8 @@ window.bubbly = function (userConfig = {}) {
         background: userConfig.background ?? (() => "#2AE"),
         animate: userConfig.animate !== false,
     }
-    // this function contains a lot of references to its parent scope, so it must be defined after the config is created
+    // this function contains a lot of references to its parent scope,
+    // so it must be defined after the config is created
     bubbles.objectCreator = userConfig.bubbles?.objectCreator ?? (() => ({
         r: bubbles.radius(),
         f: bubbles.fill(),
