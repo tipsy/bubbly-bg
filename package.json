@@ -1,8 +1,23 @@
 {
   "name": "bubbly-bg",
   "version": "1.0.0",
-  "description": "Lightweight and beautiful bubbly backgrounds",
+  "description": "Lightweight and beautiful bubbly backgrounds in less than 1kB",
   "main": "dist/bubbly-bg.js",
+  "types": "index.d.ts",
+  "files": [
+    "dist/bubbly-bg.js",
+    "src/bubbly-bg.js",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "background",
+    "canvas",
+    "animation",
+    "bubbles",
+    "bubbly",
+    "particles",
+    "lightweight"
+  ],
   "scripts": {
     "build": "node minify.js",
     "watch": "nodemon --watch src --exec 'npm run build'"
@@ -18,7 +33,7 @@
   },
   "homepage": "https://github.com/tipsy/bubbly-bg#readme",
   "devDependencies": {
-    "nodemon": "^2.0.21",
-    "terser": "^5.16.6"
+    "nodemon": "^3.1.10",
+    "terser": "^5.44.0"
   }
 }
